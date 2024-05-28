@@ -7,6 +7,7 @@ import Home from '../components/Home';
 import WorkOrders from '../components/WorkOrders';
 import Customers from '../components/Customers';
 import Invoices from '../components/Invoices';
+import Properties from '../components/Properties';
 
 const DashboardWrapper = styled.div`
 	display: flex;
