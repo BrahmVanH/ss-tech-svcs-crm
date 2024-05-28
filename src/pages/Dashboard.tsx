@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import * as Auth from '../lib/auth';
 import Login from '../components/Login';
@@ -71,9 +72,36 @@ export default function Dashboard() {
 		setRenderProperties(true);
 	};
 
-	return <DashboardWrapper>{!Auth.loggedIn() ? <Login /> : 
-  <>
-  <SideNav />
-  <DashboardContent>{renderedComponent}</DashboardContent>}</DashboardWrapper>;
-  </>
+  useEffect(() => {
+    if (renderHome) {
+      setRenderedComponent(<Home />);
+    } else if (renderWorkOrders) {
+      setRenderedComponent(<WorkOrders />);
+    } else if (renderInvoices) {
+      setRenderedComponent(<Invoices />);
+    } else if (renderCustomers) {
+      setRenderedComponent(<Customers />);
+    } else if (renderProperties) {
+      setRenderedComponent(<Properties />);
+    }
+  }, [renderHome, renderWorkOrders, renderInvoices, renderCustomers, renderProperties]);
+
+	return (
+		<DashboardWrapper>
+			{!Auth.loggedIn() ? (
+				<Login />
+			) : (
+				<>
+					<SideNav
+						handleRenderHome={handleRenderHome}
+						handleRenderWorkOrders={handleRenderWorkOrders}
+						handleRenderInvoices={handleRenderInvoices}
+						handleRenderCustomers={handleRenderCustomers}
+						handleRenderProperties={handleRenderProperties}
+					/>
+					<DashboardContent>{renderedComponent}</DashboardContent>
+				</>
+			)}
+		</DashboardWrapper>
+	);
 }
