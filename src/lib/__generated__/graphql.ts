@@ -16,15 +16,24 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
-export type Amenity = {
-  __typename?: 'Amenity';
-  amenityName: Scalars['String']['output'];
-  amenityType: Scalars['String']['output'];
+export type Address = {
+  __typename?: 'Address';
+  _id: Scalars['ID']['output'];
+  city: Scalars['String']['output'];
+  country: Scalars['String']['output'];
+  state: Scalars['String']['output'];
+  street: Scalars['String']['output'];
+  unit: Scalars['String']['output'];
+  zip: Scalars['String']['output'];
 };
 
-export type AmenityInput = {
-  amenityName: Scalars['String']['input'];
-  amenityType: Scalars['String']['input'];
+export type AddressInput = {
+  city: Scalars['String']['input'];
+  country: Scalars['String']['input'];
+  state: Scalars['String']['input'];
+  street: Scalars['String']['input'];
+  unit: Scalars['String']['input'];
+  zip: Scalars['String']['input'];
 };
 
 export type Auth = {
@@ -33,15 +42,12 @@ export type Auth = {
   user: User;
 };
 
-export type Booking = {
-  __typename?: 'Booking';
-  _id: Scalars['ID']['output'];
-  dateValue: Scalars['String']['output'];
-  propertyId: Scalars['ID']['output'];
+export type CreateCustomerInput = {
+  customer: NewCustomerInput;
 };
 
-export type CreateBookingInput = {
-  bookings?: InputMaybe<Array<NewBookingInput>>;
+export type CreatePropertyInput = {
+  property: NewPropertyInput;
 };
 
 export type CreateUserInput = {
@@ -50,6 +56,22 @@ export type CreateUserInput = {
   lastName: Scalars['String']['input'];
   userPassword: Scalars['String']['input'];
   username: Scalars['String']['input'];
+};
+
+export type CreateWorkOrderInput = {
+  workOrder: NewWorkOrderInput;
+};
+
+export type Customer = {
+  __typename?: 'Customer';
+  _id: Scalars['ID']['output'];
+  businessName: Scalars['String']['output'];
+  createdAt: Scalars['String']['output'];
+  email?: Maybe<Scalars['String']['output']>;
+  firstName: Scalars['String']['output'];
+  lastName: Scalars['String']['output'];
+  phone: Scalars['Int']['output'];
+  workOrders?: Maybe<Array<Maybe<WorkOrder>>>;
 };
 
 export type DeleteS3ObjectInput = {
@@ -69,18 +91,52 @@ export type LoginUserInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createBooking: Array<Maybe<Booking>>;
+  createCustomer: Customer;
+  createProperty: Property;
   createUser: Auth;
+  createWorkOrder: WorkOrder;
+  deleteCustomer: Customer;
+  deleteProperty: Property;
   deleteS3Objects: DeleteS3ObjectResponse;
+  deleteWorkOrder: WorkOrder;
   loginUser: Auth;
-  removeBooking: RemoveBookingResponse;
   removeUser: Auth;
-  updatePropertyInfo: Property;
+  updateCustomerBusinessName: Customer;
+  updateCustomerEmail: Customer;
+  updateCustomerFirstName: Customer;
+  updateCustomerLastName: Customer;
+  updateCustomerPhone: Customer;
+  updatePropertyAddress: Property;
+  updatePropertyAgent: Property;
+  updatePropertyDescription: Property;
+  updatePropertyName: Property;
+  updatePropertyS3FolderKey: Property;
+  updateUserFirstName: Auth;
+  updateUserLastName: Auth;
+  updateUserPassword: Auth;
+  updateUserPin: Auth;
+  updateUserUsername: Auth;
+  updateWorkOrderCharged: WorkOrder;
+  updateWorkOrderComments: WorkOrder;
+  updateWorkOrderCompletedBy: WorkOrder;
+  updateWorkOrderCustomerId: WorkOrder;
+  updateWorkOrderDate: WorkOrder;
+  updateWorkOrderDescription: WorkOrder;
+  updateWorkOrderPaid: WorkOrder;
+  updateWorkOrderPropertyId: WorkOrder;
+  updateWorkOrderQuote: WorkOrder;
+  updateWorkOrderTotal: WorkOrder;
+  updateWorkOrderType: WorkOrder;
 };
 
 
-export type MutationCreateBookingArgs = {
-  input: CreateBookingInput;
+export type MutationCreateCustomerArgs = {
+  input: CreateCustomerInput;
+};
+
+
+export type MutationCreatePropertyArgs = {
+  input: CreatePropertyInput;
 };
 
 
@@ -89,8 +145,28 @@ export type MutationCreateUserArgs = {
 };
 
 
+export type MutationCreateWorkOrderArgs = {
+  input: CreateWorkOrderInput;
+};
+
+
+export type MutationDeleteCustomerArgs = {
+  input: RemoveCustomerInput;
+};
+
+
+export type MutationDeletePropertyArgs = {
+  input: RemovePropertyInput;
+};
+
+
 export type MutationDeleteS3ObjectsArgs = {
   input: DeleteS3ObjectInput;
+};
+
+
+export type MutationDeleteWorkOrderArgs = {
+  input: RemoveWorkOrderInput;
 };
 
 
@@ -99,46 +175,191 @@ export type MutationLoginUserArgs = {
 };
 
 
-export type MutationRemoveBookingArgs = {
-  input: RemoveBookingInput;
-};
-
-
 export type MutationRemoveUserArgs = {
   input: RemoveUserInput;
 };
 
 
-export type MutationUpdatePropertyInfoArgs = {
-  input: UpdatePropertyInput;
+export type MutationUpdateCustomerBusinessNameArgs = {
+  input: UpdateCustomerBusinessNameInput;
 };
 
-export type NewBookingInput = {
-  dateValue: Scalars['String']['input'];
+
+export type MutationUpdateCustomerEmailArgs = {
+  input: UpdateCustomerEmailInput;
+};
+
+
+export type MutationUpdateCustomerFirstNameArgs = {
+  input: UpdateCustomerFirstNameInput;
+};
+
+
+export type MutationUpdateCustomerLastNameArgs = {
+  input: UpdateCustomerLastNameInput;
+};
+
+
+export type MutationUpdateCustomerPhoneArgs = {
+  input: UpdateCustomerPhoneInput;
+};
+
+
+export type MutationUpdatePropertyAddressArgs = {
+  input: UpdatePropertyAddressInput;
+};
+
+
+export type MutationUpdatePropertyAgentArgs = {
+  input: UpdatePropertyAgentInput;
+};
+
+
+export type MutationUpdatePropertyDescriptionArgs = {
+  input: UpdatePropertyDescriptionInput;
+};
+
+
+export type MutationUpdatePropertyNameArgs = {
+  input: UpdatePropertyNameInput;
+};
+
+
+export type MutationUpdatePropertyS3FolderKeyArgs = {
+  input: UpdatePropertyS3FolderKeyInput;
+};
+
+
+export type MutationUpdateUserFirstNameArgs = {
+  input: UpdateUserFirstNameInput;
+};
+
+
+export type MutationUpdateUserLastNameArgs = {
+  input: UpdateUserLastNameInput;
+};
+
+
+export type MutationUpdateUserPasswordArgs = {
+  input: UpdateUserPasswordInput;
+};
+
+
+export type MutationUpdateUserPinArgs = {
+  input: UpdateUserPinInput;
+};
+
+
+export type MutationUpdateUserUsernameArgs = {
+  input: UpdateUserUsernameInput;
+};
+
+
+export type MutationUpdateWorkOrderChargedArgs = {
+  input: UpdateWorkOrderChargedInput;
+};
+
+
+export type MutationUpdateWorkOrderCommentsArgs = {
+  input: UpdateWorkOrderCommentsInput;
+};
+
+
+export type MutationUpdateWorkOrderCompletedByArgs = {
+  input: UpdateWorkOrderCompletedByInput;
+};
+
+
+export type MutationUpdateWorkOrderCustomerIdArgs = {
+  input: UpdateWorkOrderCustomerIdInput;
+};
+
+
+export type MutationUpdateWorkOrderDateArgs = {
+  input: UpdateWorkOrderDateInput;
+};
+
+
+export type MutationUpdateWorkOrderDescriptionArgs = {
+  input: UpdateWorkOrderDescriptionInput;
+};
+
+
+export type MutationUpdateWorkOrderPaidArgs = {
+  input: UpdateWorkOrderPaidInput;
+};
+
+
+export type MutationUpdateWorkOrderPropertyIdArgs = {
+  input: UpdateWorkOrderPropertyIdInput;
+};
+
+
+export type MutationUpdateWorkOrderQuoteArgs = {
+  input: UpdateWorkOrderQuoteInput;
+};
+
+
+export type MutationUpdateWorkOrderTotalArgs = {
+  input: UpdateWorkOrderTotalInput;
+};
+
+
+export type MutationUpdateWorkOrderTypeArgs = {
+  input: UpdateWorkOrderTypeInput;
+};
+
+export type NewCustomerInput = {
+  businessName: Scalars['String']['input'];
+  email?: InputMaybe<Scalars['String']['input']>;
+  firstName: Scalars['String']['input'];
+  lastName: Scalars['String']['input'];
+  phone: Scalars['Int']['input'];
+};
+
+export type NewPropertyInput = {
+  agent: Scalars['ID']['input'];
+  propertyAddress: AddressInput;
+  propertyDescription: Scalars['String']['input'];
+  propertyName: Scalars['String']['input'];
+};
+
+export type NewWorkOrderInput = {
+  charged: Scalars['Boolean']['input'];
+  comments?: InputMaybe<Scalars['String']['input']>;
+  completedBy: Scalars['String']['input'];
+  customerId: Scalars['ID']['input'];
+  date: Scalars['String']['input'];
+  description: Scalars['String']['input'];
+  paid: Scalars['Boolean']['input'];
   propertyId: Scalars['ID']['input'];
+  quote?: InputMaybe<Scalars['Float']['input']>;
+  total?: InputMaybe<Scalars['Float']['input']>;
+  type: Scalars['String']['input'];
 };
 
 export type Property = {
   __typename?: 'Property';
   _id: Scalars['ID']['output'];
-  amenities: Array<Amenity>;
-  bookings?: Maybe<Array<Booking>>;
-  headerImgKey: Scalars['String']['output'];
+  agent: Customer;
+  propertyAddress: Address;
   propertyDescription: Scalars['String']['output'];
   propertyName: Scalars['String']['output'];
+  s3FolderKey: Scalars['String']['output'];
 };
 
 export type Query = {
   __typename?: 'Query';
-  getAboutPgImg: Scalars['String']['output'];
   getAllUsers?: Maybe<Array<User>>;
-  getCottageImgs: CottageImgPack;
-  getHideawayImgs: HideawayImgPack;
-  getHomePgImgs: HomePgImgPack;
   getPresignedS3Url: Scalars['String']['output'];
-  getProperties: Array<Property>;
-  getPropertyInfo: Property;
-  queryBookingsByProperty?: Maybe<Array<Booking>>;
+  queryCustomerById: Customer;
+  queryCustomers?: Maybe<Array<Customer>>;
+  queryProperties?: Maybe<Array<Property>>;
+  queryPropertyById: Property;
+  queryWorkOrderById: WorkOrder;
+  queryWorkOrders?: Maybe<Array<WorkOrder>>;
+  queryWorkOrdersByCustomer?: Maybe<Array<WorkOrder>>;
+  queryWorkOrdersByProperty?: Maybe<Array<WorkOrder>>;
 };
 
 
@@ -149,22 +370,36 @@ export type QueryGetPresignedS3UrlArgs = {
 };
 
 
-export type QueryGetPropertyInfoArgs = {
-  _id: Scalars['ID']['input'];
+export type QueryQueryCustomerByIdArgs = {
+  customerId: Scalars['ID']['input'];
 };
 
 
-export type QueryQueryBookingsByPropertyArgs = {
+export type QueryQueryPropertyByIdArgs = {
   propertyId: Scalars['ID']['input'];
 };
 
-export type RemoveBookingInput = {
-  bookingIds: Array<Scalars['ID']['input']>;
+
+export type QueryQueryWorkOrderByIdArgs = {
+  workOrderId: Scalars['ID']['input'];
 };
 
-export type RemoveBookingResponse = {
-  __typename?: 'RemoveBookingResponse';
-  deletedCount: Scalars['Int']['output'];
+
+export type QueryQueryWorkOrdersByCustomerArgs = {
+  customerId: Scalars['ID']['input'];
+};
+
+
+export type QueryQueryWorkOrdersByPropertyArgs = {
+  propertyId: Scalars['ID']['input'];
+};
+
+export type RemoveCustomerInput = {
+  customerId: Scalars['ID']['input'];
+};
+
+export type RemovePropertyInput = {
+  propertyId: Scalars['ID']['input'];
 };
 
 export type RemoveUserInput = {
@@ -172,16 +407,140 @@ export type RemoveUserInput = {
   username: Scalars['String']['input'];
 };
 
-export type Update = {
-  amenities?: InputMaybe<Array<AmenityInput>>;
-  headerImgKey: Scalars['String']['input'];
+export type RemoveWorkOrderInput = {
+  workOrderIds: Array<Scalars['ID']['input']>;
+};
+
+export type UpdateCustomerBusinessNameInput = {
+  businessName: Scalars['String']['input'];
+  customerId: Scalars['ID']['input'];
+};
+
+export type UpdateCustomerEmailInput = {
+  customerId: Scalars['ID']['input'];
+  email: Scalars['String']['input'];
+};
+
+export type UpdateCustomerFirstNameInput = {
+  customerId: Scalars['ID']['input'];
+  firstName: Scalars['String']['input'];
+};
+
+export type UpdateCustomerLastNameInput = {
+  customerId: Scalars['ID']['input'];
+  lastName: Scalars['String']['input'];
+};
+
+export type UpdateCustomerPhoneInput = {
+  customerId: Scalars['ID']['input'];
+  phone: Scalars['Int']['input'];
+};
+
+export type UpdatePropertyAddressInput = {
+  propertyAddress: AddressInput;
+  propertyId: Scalars['ID']['input'];
+};
+
+export type UpdatePropertyAgentInput = {
+  agent: Scalars['ID']['input'];
+  propertyId: Scalars['ID']['input'];
+};
+
+export type UpdatePropertyDescriptionInput = {
   propertyDescription: Scalars['String']['input'];
+  propertyId: Scalars['ID']['input'];
+};
+
+export type UpdatePropertyNameInput = {
+  propertyId: Scalars['ID']['input'];
   propertyName: Scalars['String']['input'];
 };
 
-export type UpdatePropertyInput = {
-  _id: Scalars['ID']['input'];
-  update: Update;
+export type UpdatePropertyS3FolderKeyInput = {
+  propertyId: Scalars['ID']['input'];
+  s3FolderKey: Scalars['String']['input'];
+};
+
+export type UpdateUserFirstNameInput = {
+  firstName: Scalars['String']['input'];
+  userId: Scalars['ID']['input'];
+};
+
+export type UpdateUserLastNameInput = {
+  lastName: Scalars['String']['input'];
+  userId: Scalars['ID']['input'];
+};
+
+export type UpdateUserPasswordInput = {
+  newPassword: Scalars['String']['input'];
+  userId: Scalars['ID']['input'];
+  userPassword: Scalars['String']['input'];
+};
+
+export type UpdateUserPinInput = {
+  pin: Scalars['String']['input'];
+  userId: Scalars['ID']['input'];
+  userPassword: Scalars['String']['input'];
+};
+
+export type UpdateUserUsernameInput = {
+  userId: Scalars['ID']['input'];
+  username: Scalars['String']['input'];
+};
+
+export type UpdateWorkOrderChargedInput = {
+  charged: Scalars['Boolean']['input'];
+  workOrderId: Scalars['ID']['input'];
+};
+
+export type UpdateWorkOrderCommentsInput = {
+  comments: Scalars['String']['input'];
+  workOrderId: Scalars['ID']['input'];
+};
+
+export type UpdateWorkOrderCompletedByInput = {
+  completedBy: Scalars['String']['input'];
+  workOrderId: Scalars['ID']['input'];
+};
+
+export type UpdateWorkOrderCustomerIdInput = {
+  customerId: Scalars['ID']['input'];
+  workOrderId: Scalars['ID']['input'];
+};
+
+export type UpdateWorkOrderDateInput = {
+  date: Scalars['String']['input'];
+  workOrderId: Scalars['ID']['input'];
+};
+
+export type UpdateWorkOrderDescriptionInput = {
+  description: Scalars['String']['input'];
+  workOrderId: Scalars['ID']['input'];
+};
+
+export type UpdateWorkOrderPaidInput = {
+  paid: Scalars['Boolean']['input'];
+  workOrderId: Scalars['ID']['input'];
+};
+
+export type UpdateWorkOrderPropertyIdInput = {
+  propertyId: Scalars['ID']['input'];
+  workOrderId: Scalars['ID']['input'];
+};
+
+export type UpdateWorkOrderQuoteInput = {
+  quote: Scalars['Float']['input'];
+  workOrderId: Scalars['ID']['input'];
+};
+
+export type UpdateWorkOrderTotalInput = {
+  total: Scalars['Float']['input'];
+  workOrderId: Scalars['ID']['input'];
+};
+
+export type UpdateWorkOrderTypeInput = {
+  type: Scalars['String']['input'];
+  workOrderId: Scalars['ID']['input'];
 };
 
 export type User = {
@@ -190,26 +549,25 @@ export type User = {
   firstName: Scalars['String']['output'];
   lastName: Scalars['String']['output'];
   password?: Maybe<Scalars['String']['output']>;
+  pin: Scalars['String']['output'];
   username: Scalars['String']['output'];
 };
 
-export type CottageImgPack = {
-  __typename?: 'cottageImgPack';
-  galleryArray: Array<ImageObject>;
-  headerUrl: Scalars['String']['output'];
-};
-
-export type HideawayImgPack = {
-  __typename?: 'hideawayImgPack';
-  galleryArray: Array<ImageObject>;
-  headerUrl: Scalars['String']['output'];
-};
-
-export type HomePgImgPack = {
-  __typename?: 'homePgImgPack';
-  cottageImgUrl: Scalars['String']['output'];
-  headerImgUrl: Scalars['String']['output'];
-  hideawayImgUrl: Scalars['String']['output'];
+export type WorkOrder = {
+  __typename?: 'WorkOrder';
+  _id: Scalars['ID']['output'];
+  charged: Scalars['Boolean']['output'];
+  comments?: Maybe<Scalars['String']['output']>;
+  completedBy: Scalars['String']['output'];
+  customerId?: Maybe<Customer>;
+  date: Scalars['String']['output'];
+  description: Scalars['String']['output'];
+  lastUpdated: Scalars['String']['output'];
+  paid: Scalars['Boolean']['output'];
+  propertyId?: Maybe<Property>;
+  quote?: Maybe<Scalars['Float']['output']>;
+  total?: Maybe<Scalars['Float']['output']>;
+  type: Scalars['String']['output'];
 };
 
 export type ImageObject = {
@@ -228,6 +586,41 @@ export type CreateUserMutationVariables = Exact<{
 
 export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'Auth', token: string, user: { __typename?: 'User', _id?: string | null, firstName: string, lastName: string, username: string } } };
 
+export type UpdateUserFirstNameMutationVariables = Exact<{
+  input: UpdateUserFirstNameInput;
+}>;
+
+
+export type UpdateUserFirstNameMutation = { __typename?: 'Mutation', updateUserFirstName: { __typename?: 'Auth', token: string, user: { __typename?: 'User', _id?: string | null, firstName: string, lastName: string, username: string } } };
+
+export type UpdateUserLastNameMutationVariables = Exact<{
+  input: UpdateUserLastNameInput;
+}>;
+
+
+export type UpdateUserLastNameMutation = { __typename?: 'Mutation', updateUserLastName: { __typename?: 'Auth', token: string, user: { __typename?: 'User', _id?: string | null, firstName: string, lastName: string, username: string } } };
+
+export type UpdateUserUsernameMutationVariables = Exact<{
+  input: UpdateUserUsernameInput;
+}>;
+
+
+export type UpdateUserUsernameMutation = { __typename?: 'Mutation', updateUserUsername: { __typename?: 'Auth', token: string, user: { __typename?: 'User', _id?: string | null, firstName: string, lastName: string, username: string } } };
+
+export type UpdateUserPasswordMutationVariables = Exact<{
+  input: UpdateUserPasswordInput;
+}>;
+
+
+export type UpdateUserPasswordMutation = { __typename?: 'Mutation', updateUserPassword: { __typename?: 'Auth', token: string, user: { __typename?: 'User', _id?: string | null, firstName: string, lastName: string, username: string } } };
+
+export type UpdateUserPinMutationVariables = Exact<{
+  input: UpdateUserPinInput;
+}>;
+
+
+export type UpdateUserPinMutation = { __typename?: 'Mutation', updateUserPin: { __typename?: 'Auth', token: string, user: { __typename?: 'User', _id?: string | null, firstName: string, lastName: string, username: string } } };
+
 export type LoginUserMutationVariables = Exact<{
   input: LoginUserInput;
 }>;
@@ -242,26 +635,194 @@ export type RemoveUserMutationVariables = Exact<{
 
 export type RemoveUserMutation = { __typename?: 'Mutation', removeUser: { __typename?: 'Auth', token: string, user: { __typename?: 'User', _id?: string | null, firstName: string, lastName: string, username: string } } };
 
-export type CreateBookingMutationVariables = Exact<{
-  input: CreateBookingInput;
+export type CreateCustomerMutationVariables = Exact<{
+  input: CreateCustomerInput;
 }>;
 
 
-export type CreateBookingMutation = { __typename?: 'Mutation', createBooking: Array<{ __typename?: 'Booking', dateValue: string, propertyId: string } | null> };
+export type CreateCustomerMutation = { __typename?: 'Mutation', createCustomer: { __typename?: 'Customer', _id: string, createdAt: string, firstName: string, lastName: string, email?: string | null, phone: number, businessName: string } };
 
-export type RemoveBookingMutationVariables = Exact<{
-  input: RemoveBookingInput;
+export type UpdateCustomerFirstNameMutationVariables = Exact<{
+  input: UpdateCustomerFirstNameInput;
 }>;
 
 
-export type RemoveBookingMutation = { __typename?: 'Mutation', removeBooking: { __typename?: 'RemoveBookingResponse', deletedCount: number } };
+export type UpdateCustomerFirstNameMutation = { __typename?: 'Mutation', updateCustomerFirstName: { __typename?: 'Customer', _id: string, firstName: string } };
 
-export type UpdatePropertyInfoMutationVariables = Exact<{
-  input: UpdatePropertyInput;
+export type UpdateCustomerLastNameMutationVariables = Exact<{
+  input: UpdateCustomerLastNameInput;
 }>;
 
 
-export type UpdatePropertyInfoMutation = { __typename?: 'Mutation', updatePropertyInfo: { __typename?: 'Property', _id: string, propertyName: string, propertyDescription: string, headerImgKey: string, amenities: Array<{ __typename?: 'Amenity', amenityName: string, amenityType: string }> } };
+export type UpdateCustomerLastNameMutation = { __typename?: 'Mutation', updateCustomerLastName: { __typename?: 'Customer', _id: string, lastName: string } };
+
+export type UpdateCustomerEmailMutationVariables = Exact<{
+  input: UpdateCustomerEmailInput;
+}>;
+
+
+export type UpdateCustomerEmailMutation = { __typename?: 'Mutation', updateCustomerEmail: { __typename?: 'Customer', _id: string, email?: string | null } };
+
+export type UpdateCustomerPhoneMutationVariables = Exact<{
+  input: UpdateCustomerPhoneInput;
+}>;
+
+
+export type UpdateCustomerPhoneMutation = { __typename?: 'Mutation', updateCustomerPhone: { __typename?: 'Customer', _id: string, phone: number } };
+
+export type UpdateCustomerBusinessNameMutationVariables = Exact<{
+  input: UpdateCustomerBusinessNameInput;
+}>;
+
+
+export type UpdateCustomerBusinessNameMutation = { __typename?: 'Mutation', updateCustomerBusinessName: { __typename?: 'Customer', _id: string, businessName: string } };
+
+export type DeleteCustomerMutationVariables = Exact<{
+  input: RemoveCustomerInput;
+}>;
+
+
+export type DeleteCustomerMutation = { __typename?: 'Mutation', deleteCustomer: { __typename?: 'Customer', _id: string, firstName: string, lastName: string, email?: string | null, phone: number, businessName: string } };
+
+export type CreatePropertyMutationVariables = Exact<{
+  input: CreatePropertyInput;
+}>;
+
+
+export type CreatePropertyMutation = { __typename?: 'Mutation', createProperty: { __typename?: 'Property', _id: string, propertyName: string } };
+
+export type UpdatePropertyNameMutationVariables = Exact<{
+  input: UpdatePropertyNameInput;
+}>;
+
+
+export type UpdatePropertyNameMutation = { __typename?: 'Mutation', updatePropertyName: { __typename?: 'Property', _id: string, propertyName: string } };
+
+export type UpdatePropertyAddressMutationVariables = Exact<{
+  input: UpdatePropertyAddressInput;
+}>;
+
+
+export type UpdatePropertyAddressMutation = { __typename?: 'Mutation', updatePropertyAddress: { __typename?: 'Property', _id: string, propertyAddress: { __typename?: 'Address', street: string, unit: string, city: string, state: string, zip: string, country: string } } };
+
+export type UpdatePropertyDescriptionMutationVariables = Exact<{
+  input: UpdatePropertyDescriptionInput;
+}>;
+
+
+export type UpdatePropertyDescriptionMutation = { __typename?: 'Mutation', updatePropertyDescription: { __typename?: 'Property', _id: string, propertyDescription: string } };
+
+export type UpdatePropertyAgentMutationVariables = Exact<{
+  input: UpdatePropertyAgentInput;
+}>;
+
+
+export type UpdatePropertyAgentMutation = { __typename?: 'Mutation', updatePropertyAgent: { __typename?: 'Property', _id: string, agent: { __typename?: 'Customer', _id: string } } };
+
+export type UpdatePropertyS3FolderKeyMutationVariables = Exact<{
+  input: UpdatePropertyS3FolderKeyInput;
+}>;
+
+
+export type UpdatePropertyS3FolderKeyMutation = { __typename?: 'Mutation', updatePropertyS3FolderKey: { __typename?: 'Property', _id: string, s3FolderKey: string } };
+
+export type DeletePropertyMutationVariables = Exact<{
+  input: RemovePropertyInput;
+}>;
+
+
+export type DeletePropertyMutation = { __typename?: 'Mutation', deleteProperty: { __typename?: 'Property', _id: string } };
+
+export type CreateWorkOrderMutationVariables = Exact<{
+  input: CreateWorkOrderInput;
+}>;
+
+
+export type CreateWorkOrderMutation = { __typename?: 'Mutation', createWorkOrder: { __typename?: 'WorkOrder', _id: string, date: string } };
+
+export type UpdateWorkOrderDateMutationVariables = Exact<{
+  input: UpdateWorkOrderDateInput;
+}>;
+
+
+export type UpdateWorkOrderDateMutation = { __typename?: 'Mutation', updateWorkOrderDate: { __typename?: 'WorkOrder', _id: string, date: string } };
+
+export type UpdateWorkOrderCustomerIdMutationVariables = Exact<{
+  input: UpdateWorkOrderCustomerIdInput;
+}>;
+
+
+export type UpdateWorkOrderCustomerIdMutation = { __typename?: 'Mutation', updateWorkOrderCustomerId: { __typename?: 'WorkOrder', _id: string, customerId?: { __typename?: 'Customer', _id: string } | null } };
+
+export type UpdateWorkOrderPropertyIdMutationVariables = Exact<{
+  input: UpdateWorkOrderPropertyIdInput;
+}>;
+
+
+export type UpdateWorkOrderPropertyIdMutation = { __typename?: 'Mutation', updateWorkOrderPropertyId: { __typename?: 'WorkOrder', _id: string, propertyId?: { __typename?: 'Property', _id: string } | null } };
+
+export type UpdateWorkOrderTypeMutationVariables = Exact<{
+  input: UpdateWorkOrderTypeInput;
+}>;
+
+
+export type UpdateWorkOrderTypeMutation = { __typename?: 'Mutation', updateWorkOrderType: { __typename?: 'WorkOrder', _id: string, type: string } };
+
+export type UpdateWorkOrderDescriptionMutationVariables = Exact<{
+  input: UpdateWorkOrderDescriptionInput;
+}>;
+
+
+export type UpdateWorkOrderDescriptionMutation = { __typename?: 'Mutation', updateWorkOrderDescription: { __typename?: 'WorkOrder', _id: string, description: string } };
+
+export type UpdateWorkOrderQuoteMutationVariables = Exact<{
+  input: UpdateWorkOrderQuoteInput;
+}>;
+
+
+export type UpdateWorkOrderQuoteMutation = { __typename?: 'Mutation', updateWorkOrderQuote: { __typename?: 'WorkOrder', _id: string, quote?: number | null } };
+
+export type UpdateWorkOrderCompletedByMutationVariables = Exact<{
+  input: UpdateWorkOrderCompletedByInput;
+}>;
+
+
+export type UpdateWorkOrderCompletedByMutation = { __typename?: 'Mutation', updateWorkOrderCompletedBy: { __typename?: 'WorkOrder', _id: string, completedBy: string } };
+
+export type UpdateWorkOrderTotalMutationVariables = Exact<{
+  input: UpdateWorkOrderTotalInput;
+}>;
+
+
+export type UpdateWorkOrderTotalMutation = { __typename?: 'Mutation', updateWorkOrderTotal: { __typename?: 'WorkOrder', _id: string, total?: number | null } };
+
+export type UpdateWorkOrderChargedMutationVariables = Exact<{
+  input: UpdateWorkOrderChargedInput;
+}>;
+
+
+export type UpdateWorkOrderChargedMutation = { __typename?: 'Mutation', updateWorkOrderCharged: { __typename?: 'WorkOrder', _id: string, charged: boolean } };
+
+export type UpdateWorkOrderPaidMutationVariables = Exact<{
+  input: UpdateWorkOrderPaidInput;
+}>;
+
+
+export type UpdateWorkOrderPaidMutation = { __typename?: 'Mutation', updateWorkOrderPaid: { __typename?: 'WorkOrder', _id: string, paid: boolean } };
+
+export type UpdateWorkOrderCommentsMutationVariables = Exact<{
+  input: UpdateWorkOrderCommentsInput;
+}>;
+
+
+export type UpdateWorkOrderCommentsMutation = { __typename?: 'Mutation', updateWorkOrderComments: { __typename?: 'WorkOrder', _id: string, comments?: string | null } };
+
+export type DeleteWorkOrderMutationVariables = Exact<{
+  input: RemoveWorkOrderInput;
+}>;
+
+
+export type DeleteWorkOrderMutation = { __typename?: 'Mutation', deleteWorkOrder: { __typename?: 'WorkOrder', _id: string } };
 
 export type DeleteS3ObjectsMutationVariables = Exact<{
   input: DeleteS3ObjectInput;
@@ -275,44 +836,55 @@ export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetAllUsersQuery = { __typename?: 'Query', getAllUsers?: Array<{ __typename?: 'User', firstName: string, lastName: string, username: string }> | null };
 
-export type QueryBookingsByPropertyQueryVariables = Exact<{
+export type QueryCustomersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type QueryCustomersQuery = { __typename?: 'Query', queryCustomers?: Array<{ __typename?: 'Customer', _id: string, createdAt: string, firstName: string, lastName: string, email?: string | null, phone: number, businessName: string, workOrders?: Array<{ __typename?: 'WorkOrder', _id: string, date: string, type: string, charged: boolean, paid: boolean, propertyId?: { __typename?: 'Property', _id: string, propertyName: string, propertyAddress: { __typename?: 'Address', street: string, city: string, state: string, zip: string } } | null } | null> | null }> | null };
+
+export type QueryCustomerByIdQueryVariables = Exact<{
+  customerId: Scalars['ID']['input'];
+}>;
+
+
+export type QueryCustomerByIdQuery = { __typename?: 'Query', queryCustomerById: { __typename?: 'Customer', _id: string, createdAt: string, firstName: string, lastName: string, email?: string | null, phone: number, businessName: string, workOrders?: Array<{ __typename?: 'WorkOrder', _id: string, date: string, type: string, charged: boolean, paid: boolean, propertyId?: { __typename?: 'Property', _id: string, propertyName: string, propertyAddress: { __typename?: 'Address', street: string, city: string, state: string, zip: string } } | null } | null> | null } };
+
+export type QueryPropertiesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type QueryPropertiesQuery = { __typename?: 'Query', queryProperties?: Array<{ __typename?: 'Property', _id: string, propertyName: string, propertyDescription: string, s3FolderKey: string, propertyAddress: { __typename?: 'Address', street: string, city: string, state: string, zip: string }, agent: { __typename?: 'Customer', _id: string, firstName: string, lastName: string, phone: number } }> | null };
+
+export type QueryPropertyByIdQueryVariables = Exact<{
   propertyId: Scalars['ID']['input'];
 }>;
 
 
-export type QueryBookingsByPropertyQuery = { __typename?: 'Query', queryBookingsByProperty?: Array<{ __typename?: 'Booking', _id: string, dateValue: string, propertyId: string }> | null };
+export type QueryPropertyByIdQuery = { __typename?: 'Query', queryPropertyById: { __typename?: 'Property', _id: string, propertyName: string, propertyDescription: string, s3FolderKey: string, propertyAddress: { __typename?: 'Address', street: string, city: string, state: string, zip: string }, agent: { __typename?: 'Customer', _id: string, firstName: string, lastName: string, phone: number } } };
 
-export type GetHomePgImgsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetHomePgImgsQuery = { __typename?: 'Query', getHomePgImgs: { __typename?: 'homePgImgPack', headerImgUrl: string, hideawayImgUrl: string, cottageImgUrl: string } };
-
-export type GetHideawayImgsQueryVariables = Exact<{ [key: string]: never; }>;
+export type QueryWorkOrdersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetHideawayImgsQuery = { __typename?: 'Query', getHideawayImgs: { __typename?: 'hideawayImgPack', headerUrl: string, galleryArray: Array<{ __typename?: 'imageObject', imgKey: string, original: string, thumbnail: string, originalAlt: string, thumbnailAlt: string }> } };
+export type QueryWorkOrdersQuery = { __typename?: 'Query', queryWorkOrders?: Array<{ __typename?: 'WorkOrder', _id: string, date: string, lastUpdated: string, type: string, description: string, quote?: number | null, total?: number | null, charged: boolean, paid: boolean, comments?: string | null, customerId?: { __typename?: 'Customer', _id: string, firstName: string, lastName: string, email?: string | null, phone: number, businessName: string } | null, propertyId?: { __typename?: 'Property', _id: string, propertyName: string, propertyDescription: string, s3FolderKey: string, propertyAddress: { __typename?: 'Address', street: string, city: string, state: string, zip: string }, agent: { __typename?: 'Customer', _id: string, firstName: string, lastName: string, phone: number } } | null }> | null };
 
-export type GetCottageImgsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetCottageImgsQuery = { __typename?: 'Query', getCottageImgs: { __typename?: 'cottageImgPack', headerUrl: string, galleryArray: Array<{ __typename?: 'imageObject', original: string, thumbnail: string, originalAlt: string, thumbnailAlt: string }> } };
-
-export type GetAboutPgImgQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetAboutPgImgQuery = { __typename?: 'Query', getAboutPgImg: string };
-
-export type GetPropertyInfoQueryVariables = Exact<{
-  _id: Scalars['ID']['input'];
+export type QueryWorkOrderByIdQueryVariables = Exact<{
+  workOrderId: Scalars['ID']['input'];
 }>;
 
 
-export type GetPropertyInfoQuery = { __typename?: 'Query', getPropertyInfo: { __typename?: 'Property', _id: string, propertyName: string, propertyDescription: string, headerImgKey: string, amenities: Array<{ __typename?: 'Amenity', amenityName: string, amenityType: string }> } };
+export type QueryWorkOrderByIdQuery = { __typename?: 'Query', queryWorkOrderById: { __typename?: 'WorkOrder', _id: string, date: string, lastUpdated: string, type: string, description: string, quote?: number | null, total?: number | null, charged: boolean, paid: boolean, comments?: string | null, customerId?: { __typename?: 'Customer', _id: string, firstName: string, lastName: string, email?: string | null, phone: number, businessName: string } | null, propertyId?: { __typename?: 'Property', _id: string, propertyName: string, propertyDescription: string, s3FolderKey: string, propertyAddress: { __typename?: 'Address', street: string, city: string, state: string, zip: string }, agent: { __typename?: 'Customer', _id: string, firstName: string, lastName: string, phone: number } } | null } };
 
-export type GetPropertiesQueryVariables = Exact<{ [key: string]: never; }>;
+export type QueryWorkOrdersByCustomerQueryVariables = Exact<{
+  customerId: Scalars['ID']['input'];
+}>;
 
 
-export type GetPropertiesQuery = { __typename?: 'Query', getProperties: Array<{ __typename?: 'Property', _id: string, propertyName: string, propertyDescription: string, headerImgKey: string, amenities: Array<{ __typename?: 'Amenity', amenityName: string, amenityType: string }> }> };
+export type QueryWorkOrdersByCustomerQuery = { __typename?: 'Query', queryWorkOrdersByCustomer?: Array<{ __typename?: 'WorkOrder', _id: string, date: string, lastUpdated: string, type: string, description: string, quote?: number | null, total?: number | null, charged: boolean, paid: boolean, comments?: string | null, customerId?: { __typename?: 'Customer', _id: string, firstName: string, lastName: string, email?: string | null, phone: number, businessName: string } | null, propertyId?: { __typename?: 'Property', _id: string, propertyName: string, propertyDescription: string, s3FolderKey: string, propertyAddress: { __typename?: 'Address', street: string, city: string, state: string, zip: string }, agent: { __typename?: 'Customer', _id: string, firstName: string, lastName: string, phone: number } } | null }> | null };
+
+export type QueryWorkOrdersByPropertyQueryVariables = Exact<{
+  propertyId: Scalars['ID']['input'];
+}>;
+
+
+export type QueryWorkOrdersByPropertyQuery = { __typename?: 'Query', queryWorkOrdersByProperty?: Array<{ __typename?: 'WorkOrder', _id: string, date: string, lastUpdated: string, type: string, description: string, quote?: number | null, total?: number | null, charged: boolean, paid: boolean, comments?: string | null, customerId?: { __typename?: 'Customer', _id: string, firstName: string, lastName: string, email?: string | null, phone: number, businessName: string } | null, propertyId?: { __typename?: 'Property', _id: string, propertyName: string, propertyDescription: string, s3FolderKey: string, propertyAddress: { __typename?: 'Address', street: string, city: string, state: string, zip: string }, agent: { __typename?: 'Customer', _id: string, firstName: string, lastName: string, phone: number } } | null }> | null };
 
 export type GetPresignedS3UrlQueryVariables = Exact<{
   imgKey: Scalars['String']['input'];
@@ -325,18 +897,48 @@ export type GetPresignedS3UrlQuery = { __typename?: 'Query', getPresignedS3Url: 
 
 
 export const CreateUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateUserInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]}}]} as unknown as DocumentNode<CreateUserMutation, CreateUserMutationVariables>;
+export const UpdateUserFirstNameDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateUserFirstName"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateUserFirstNameInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateUserFirstName"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]}}]} as unknown as DocumentNode<UpdateUserFirstNameMutation, UpdateUserFirstNameMutationVariables>;
+export const UpdateUserLastNameDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateUserLastName"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateUserLastNameInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateUserLastName"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]}}]} as unknown as DocumentNode<UpdateUserLastNameMutation, UpdateUserLastNameMutationVariables>;
+export const UpdateUserUsernameDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateUserUsername"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateUserUsernameInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateUserUsername"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]}}]} as unknown as DocumentNode<UpdateUserUsernameMutation, UpdateUserUsernameMutationVariables>;
+export const UpdateUserPasswordDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateUserPassword"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateUserPasswordInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateUserPassword"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]}}]} as unknown as DocumentNode<UpdateUserPasswordMutation, UpdateUserPasswordMutationVariables>;
+export const UpdateUserPinDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateUserPin"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateUserPinInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateUserPin"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]}}]} as unknown as DocumentNode<UpdateUserPinMutation, UpdateUserPinMutationVariables>;
 export const LoginUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"LoginUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"LoginUserInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"loginUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]}}]} as unknown as DocumentNode<LoginUserMutation, LoginUserMutationVariables>;
 export const RemoveUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"removeUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RemoveUserInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"token"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]}}]} as unknown as DocumentNode<RemoveUserMutation, RemoveUserMutationVariables>;
-export const CreateBookingDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateBooking"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateBookingInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createBooking"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"dateValue"}},{"kind":"Field","name":{"kind":"Name","value":"propertyId"}}]}}]}}]} as unknown as DocumentNode<CreateBookingMutation, CreateBookingMutationVariables>;
-export const RemoveBookingDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"removeBooking"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RemoveBookingInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removeBooking"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deletedCount"}}]}}]}}]} as unknown as DocumentNode<RemoveBookingMutation, RemoveBookingMutationVariables>;
-export const UpdatePropertyInfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdatePropertyInfo"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdatePropertyInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updatePropertyInfo"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"propertyName"}},{"kind":"Field","name":{"kind":"Name","value":"propertyDescription"}},{"kind":"Field","name":{"kind":"Name","value":"amenities"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amenityName"}},{"kind":"Field","name":{"kind":"Name","value":"amenityType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"headerImgKey"}}]}}]}}]} as unknown as DocumentNode<UpdatePropertyInfoMutation, UpdatePropertyInfoMutationVariables>;
+export const CreateCustomerDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateCustomer"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateCustomerInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createCustomer"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"businessName"}}]}}]}}]} as unknown as DocumentNode<CreateCustomerMutation, CreateCustomerMutationVariables>;
+export const UpdateCustomerFirstNameDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateCustomerFirstName"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateCustomerFirstNameInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateCustomerFirstName"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}}]}}]}}]} as unknown as DocumentNode<UpdateCustomerFirstNameMutation, UpdateCustomerFirstNameMutationVariables>;
+export const UpdateCustomerLastNameDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateCustomerLastName"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateCustomerLastNameInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateCustomerLastName"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}}]}}]}}]} as unknown as DocumentNode<UpdateCustomerLastNameMutation, UpdateCustomerLastNameMutationVariables>;
+export const UpdateCustomerEmailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateCustomerEmail"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateCustomerEmailInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateCustomerEmail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}}]}}]} as unknown as DocumentNode<UpdateCustomerEmailMutation, UpdateCustomerEmailMutationVariables>;
+export const UpdateCustomerPhoneDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateCustomerPhone"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateCustomerPhoneInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateCustomerPhone"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}}]}}]} as unknown as DocumentNode<UpdateCustomerPhoneMutation, UpdateCustomerPhoneMutationVariables>;
+export const UpdateCustomerBusinessNameDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateCustomerBusinessName"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateCustomerBusinessNameInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateCustomerBusinessName"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"businessName"}}]}}]}}]} as unknown as DocumentNode<UpdateCustomerBusinessNameMutation, UpdateCustomerBusinessNameMutationVariables>;
+export const DeleteCustomerDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"deleteCustomer"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RemoveCustomerInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteCustomer"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"businessName"}}]}}]}}]} as unknown as DocumentNode<DeleteCustomerMutation, DeleteCustomerMutationVariables>;
+export const CreatePropertyDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateProperty"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreatePropertyInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createProperty"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"propertyName"}}]}}]}}]} as unknown as DocumentNode<CreatePropertyMutation, CreatePropertyMutationVariables>;
+export const UpdatePropertyNameDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdatePropertyName"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdatePropertyNameInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updatePropertyName"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"propertyName"}}]}}]}}]} as unknown as DocumentNode<UpdatePropertyNameMutation, UpdatePropertyNameMutationVariables>;
+export const UpdatePropertyAddressDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdatePropertyAddress"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdatePropertyAddressInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updatePropertyAddress"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"propertyAddress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"street"}},{"kind":"Field","name":{"kind":"Name","value":"unit"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"zip"}},{"kind":"Field","name":{"kind":"Name","value":"country"}}]}}]}}]}}]} as unknown as DocumentNode<UpdatePropertyAddressMutation, UpdatePropertyAddressMutationVariables>;
+export const UpdatePropertyDescriptionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdatePropertyDescription"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdatePropertyDescriptionInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updatePropertyDescription"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"propertyDescription"}}]}}]}}]} as unknown as DocumentNode<UpdatePropertyDescriptionMutation, UpdatePropertyDescriptionMutationVariables>;
+export const UpdatePropertyAgentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdatePropertyAgent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdatePropertyAgentInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updatePropertyAgent"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"agent"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}}]}}]}}]}}]} as unknown as DocumentNode<UpdatePropertyAgentMutation, UpdatePropertyAgentMutationVariables>;
+export const UpdatePropertyS3FolderKeyDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdatePropertyS3FolderKey"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdatePropertyS3FolderKeyInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updatePropertyS3FolderKey"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"s3FolderKey"}}]}}]}}]} as unknown as DocumentNode<UpdatePropertyS3FolderKeyMutation, UpdatePropertyS3FolderKeyMutationVariables>;
+export const DeletePropertyDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"deleteProperty"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RemovePropertyInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteProperty"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}}]}}]}}]} as unknown as DocumentNode<DeletePropertyMutation, DeletePropertyMutationVariables>;
+export const CreateWorkOrderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateWorkOrder"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateWorkOrderInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createWorkOrder"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}}]}}]}}]} as unknown as DocumentNode<CreateWorkOrderMutation, CreateWorkOrderMutationVariables>;
+export const UpdateWorkOrderDateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateWorkOrderDate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateWorkOrderDateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateWorkOrderDate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}}]}}]}}]} as unknown as DocumentNode<UpdateWorkOrderDateMutation, UpdateWorkOrderDateMutationVariables>;
+export const UpdateWorkOrderCustomerIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateWorkOrderCustomerId"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateWorkOrderCustomerIdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateWorkOrderCustomerId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"customerId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}}]}}]}}]}}]} as unknown as DocumentNode<UpdateWorkOrderCustomerIdMutation, UpdateWorkOrderCustomerIdMutationVariables>;
+export const UpdateWorkOrderPropertyIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateWorkOrderPropertyId"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateWorkOrderPropertyIdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateWorkOrderPropertyId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"propertyId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}}]}}]}}]}}]} as unknown as DocumentNode<UpdateWorkOrderPropertyIdMutation, UpdateWorkOrderPropertyIdMutationVariables>;
+export const UpdateWorkOrderTypeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateWorkOrderType"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateWorkOrderTypeInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateWorkOrderType"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}}]}}]} as unknown as DocumentNode<UpdateWorkOrderTypeMutation, UpdateWorkOrderTypeMutationVariables>;
+export const UpdateWorkOrderDescriptionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateWorkOrderDescription"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateWorkOrderDescriptionInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateWorkOrderDescription"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}}]} as unknown as DocumentNode<UpdateWorkOrderDescriptionMutation, UpdateWorkOrderDescriptionMutationVariables>;
+export const UpdateWorkOrderQuoteDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateWorkOrderQuote"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateWorkOrderQuoteInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateWorkOrderQuote"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"quote"}}]}}]}}]} as unknown as DocumentNode<UpdateWorkOrderQuoteMutation, UpdateWorkOrderQuoteMutationVariables>;
+export const UpdateWorkOrderCompletedByDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateWorkOrderCompletedBy"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateWorkOrderCompletedByInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateWorkOrderCompletedBy"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"completedBy"}}]}}]}}]} as unknown as DocumentNode<UpdateWorkOrderCompletedByMutation, UpdateWorkOrderCompletedByMutationVariables>;
+export const UpdateWorkOrderTotalDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateWorkOrderTotal"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateWorkOrderTotalInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateWorkOrderTotal"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"total"}}]}}]}}]} as unknown as DocumentNode<UpdateWorkOrderTotalMutation, UpdateWorkOrderTotalMutationVariables>;
+export const UpdateWorkOrderChargedDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateWorkOrderCharged"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateWorkOrderChargedInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateWorkOrderCharged"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"charged"}}]}}]}}]} as unknown as DocumentNode<UpdateWorkOrderChargedMutation, UpdateWorkOrderChargedMutationVariables>;
+export const UpdateWorkOrderPaidDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateWorkOrderPaid"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateWorkOrderPaidInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateWorkOrderPaid"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"paid"}}]}}]}}]} as unknown as DocumentNode<UpdateWorkOrderPaidMutation, UpdateWorkOrderPaidMutationVariables>;
+export const UpdateWorkOrderCommentsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateWorkOrderComments"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateWorkOrderCommentsInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateWorkOrderComments"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"comments"}}]}}]}}]} as unknown as DocumentNode<UpdateWorkOrderCommentsMutation, UpdateWorkOrderCommentsMutationVariables>;
+export const DeleteWorkOrderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"deleteWorkOrder"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RemoveWorkOrderInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteWorkOrder"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}}]}}]}}]} as unknown as DocumentNode<DeleteWorkOrderMutation, DeleteWorkOrderMutationVariables>;
 export const DeleteS3ObjectsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteS3Objects"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DeleteS3ObjectInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteS3Objects"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]} as unknown as DocumentNode<DeleteS3ObjectsMutation, DeleteS3ObjectsMutationVariables>;
 export const GetAllUsersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllUsers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAllUsers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]} as unknown as DocumentNode<GetAllUsersQuery, GetAllUsersQueryVariables>;
-export const QueryBookingsByPropertyDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"QueryBookingsByProperty"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"propertyId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"queryBookingsByProperty"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"propertyId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"propertyId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"dateValue"}},{"kind":"Field","name":{"kind":"Name","value":"propertyId"}}]}}]}}]} as unknown as DocumentNode<QueryBookingsByPropertyQuery, QueryBookingsByPropertyQueryVariables>;
-export const GetHomePgImgsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetHomePgImgs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getHomePgImgs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"headerImgUrl"}},{"kind":"Field","name":{"kind":"Name","value":"hideawayImgUrl"}},{"kind":"Field","name":{"kind":"Name","value":"cottageImgUrl"}}]}}]}}]} as unknown as DocumentNode<GetHomePgImgsQuery, GetHomePgImgsQueryVariables>;
-export const GetHideawayImgsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetHideawayImgs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getHideawayImgs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"headerUrl"}},{"kind":"Field","name":{"kind":"Name","value":"galleryArray"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"imgKey"}},{"kind":"Field","name":{"kind":"Name","value":"original"}},{"kind":"Field","name":{"kind":"Name","value":"thumbnail"}},{"kind":"Field","name":{"kind":"Name","value":"originalAlt"}},{"kind":"Field","name":{"kind":"Name","value":"thumbnailAlt"}}]}}]}}]}}]} as unknown as DocumentNode<GetHideawayImgsQuery, GetHideawayImgsQueryVariables>;
-export const GetCottageImgsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCottageImgs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getCottageImgs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"headerUrl"}},{"kind":"Field","name":{"kind":"Name","value":"galleryArray"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"original"}},{"kind":"Field","name":{"kind":"Name","value":"thumbnail"}},{"kind":"Field","name":{"kind":"Name","value":"originalAlt"}},{"kind":"Field","name":{"kind":"Name","value":"thumbnailAlt"}}]}}]}}]}}]} as unknown as DocumentNode<GetCottageImgsQuery, GetCottageImgsQueryVariables>;
-export const GetAboutPgImgDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAboutPgImg"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAboutPgImg"}}]}}]} as unknown as DocumentNode<GetAboutPgImgQuery, GetAboutPgImgQueryVariables>;
-export const GetPropertyInfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPropertyInfo"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"_id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getPropertyInfo"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"_id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"propertyName"}},{"kind":"Field","name":{"kind":"Name","value":"propertyDescription"}},{"kind":"Field","name":{"kind":"Name","value":"amenities"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amenityName"}},{"kind":"Field","name":{"kind":"Name","value":"amenityType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"headerImgKey"}}]}}]}}]} as unknown as DocumentNode<GetPropertyInfoQuery, GetPropertyInfoQueryVariables>;
-export const GetPropertiesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"propertyName"}},{"kind":"Field","name":{"kind":"Name","value":"propertyDescription"}},{"kind":"Field","name":{"kind":"Name","value":"amenities"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amenityName"}},{"kind":"Field","name":{"kind":"Name","value":"amenityType"}}]}},{"kind":"Field","name":{"kind":"Name","value":"headerImgKey"}}]}}]}}]} as unknown as DocumentNode<GetPropertiesQuery, GetPropertiesQueryVariables>;
+export const QueryCustomersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"QueryCustomers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"queryCustomers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"businessName"}},{"kind":"Field","name":{"kind":"Name","value":"workOrders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"propertyId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"propertyName"}},{"kind":"Field","name":{"kind":"Name","value":"propertyAddress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"street"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"zip"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"charged"}},{"kind":"Field","name":{"kind":"Name","value":"paid"}}]}}]}}]}}]} as unknown as DocumentNode<QueryCustomersQuery, QueryCustomersQueryVariables>;
+export const QueryCustomerByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"QueryCustomerById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"customerId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"queryCustomerById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"customerId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"customerId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"businessName"}},{"kind":"Field","name":{"kind":"Name","value":"workOrders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"propertyId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"propertyName"}},{"kind":"Field","name":{"kind":"Name","value":"propertyAddress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"street"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"zip"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"charged"}},{"kind":"Field","name":{"kind":"Name","value":"paid"}}]}}]}}]}}]} as unknown as DocumentNode<QueryCustomerByIdQuery, QueryCustomerByIdQueryVariables>;
+export const QueryPropertiesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"QueryProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"queryProperties"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"propertyName"}},{"kind":"Field","name":{"kind":"Name","value":"propertyAddress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"street"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"zip"}}]}},{"kind":"Field","name":{"kind":"Name","value":"propertyDescription"}},{"kind":"Field","name":{"kind":"Name","value":"agent"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}},{"kind":"Field","name":{"kind":"Name","value":"s3FolderKey"}}]}}]}}]} as unknown as DocumentNode<QueryPropertiesQuery, QueryPropertiesQueryVariables>;
+export const QueryPropertyByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"QueryPropertyById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"propertyId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"queryPropertyById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"propertyId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"propertyId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"propertyName"}},{"kind":"Field","name":{"kind":"Name","value":"propertyAddress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"street"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"zip"}}]}},{"kind":"Field","name":{"kind":"Name","value":"propertyDescription"}},{"kind":"Field","name":{"kind":"Name","value":"agent"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}},{"kind":"Field","name":{"kind":"Name","value":"s3FolderKey"}}]}}]}}]} as unknown as DocumentNode<QueryPropertyByIdQuery, QueryPropertyByIdQueryVariables>;
+export const QueryWorkOrdersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"QueryWorkOrders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"queryWorkOrders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"lastUpdated"}},{"kind":"Field","name":{"kind":"Name","value":"customerId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"businessName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"propertyId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"propertyName"}},{"kind":"Field","name":{"kind":"Name","value":"propertyAddress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"street"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"zip"}}]}},{"kind":"Field","name":{"kind":"Name","value":"propertyDescription"}},{"kind":"Field","name":{"kind":"Name","value":"agent"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}},{"kind":"Field","name":{"kind":"Name","value":"s3FolderKey"}}]}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"quote"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"charged"}},{"kind":"Field","name":{"kind":"Name","value":"paid"}},{"kind":"Field","name":{"kind":"Name","value":"comments"}}]}}]}}]} as unknown as DocumentNode<QueryWorkOrdersQuery, QueryWorkOrdersQueryVariables>;
+export const QueryWorkOrderByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"QueryWorkOrderById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"workOrderId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"queryWorkOrderById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"workOrderId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"workOrderId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"lastUpdated"}},{"kind":"Field","name":{"kind":"Name","value":"customerId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"businessName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"propertyId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"propertyName"}},{"kind":"Field","name":{"kind":"Name","value":"propertyAddress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"street"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"zip"}}]}},{"kind":"Field","name":{"kind":"Name","value":"propertyDescription"}},{"kind":"Field","name":{"kind":"Name","value":"agent"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}},{"kind":"Field","name":{"kind":"Name","value":"s3FolderKey"}}]}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"quote"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"charged"}},{"kind":"Field","name":{"kind":"Name","value":"paid"}},{"kind":"Field","name":{"kind":"Name","value":"comments"}}]}}]}}]} as unknown as DocumentNode<QueryWorkOrderByIdQuery, QueryWorkOrderByIdQueryVariables>;
+export const QueryWorkOrdersByCustomerDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"QueryWorkOrdersByCustomer"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"customerId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"queryWorkOrdersByCustomer"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"customerId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"customerId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"lastUpdated"}},{"kind":"Field","name":{"kind":"Name","value":"customerId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"businessName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"propertyId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"propertyName"}},{"kind":"Field","name":{"kind":"Name","value":"propertyAddress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"street"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"zip"}}]}},{"kind":"Field","name":{"kind":"Name","value":"propertyDescription"}},{"kind":"Field","name":{"kind":"Name","value":"agent"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}},{"kind":"Field","name":{"kind":"Name","value":"s3FolderKey"}}]}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"quote"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"charged"}},{"kind":"Field","name":{"kind":"Name","value":"paid"}},{"kind":"Field","name":{"kind":"Name","value":"comments"}}]}}]}}]} as unknown as DocumentNode<QueryWorkOrdersByCustomerQuery, QueryWorkOrdersByCustomerQueryVariables>;
+export const QueryWorkOrdersByPropertyDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"QueryWorkOrdersByProperty"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"propertyId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"queryWorkOrdersByProperty"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"propertyId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"propertyId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"lastUpdated"}},{"kind":"Field","name":{"kind":"Name","value":"customerId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"businessName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"propertyId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"propertyName"}},{"kind":"Field","name":{"kind":"Name","value":"propertyAddress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"street"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"zip"}}]}},{"kind":"Field","name":{"kind":"Name","value":"propertyDescription"}},{"kind":"Field","name":{"kind":"Name","value":"agent"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}},{"kind":"Field","name":{"kind":"Name","value":"s3FolderKey"}}]}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"quote"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"charged"}},{"kind":"Field","name":{"kind":"Name","value":"paid"}},{"kind":"Field","name":{"kind":"Name","value":"comments"}}]}}]}}]} as unknown as DocumentNode<QueryWorkOrdersByPropertyQuery, QueryWorkOrdersByPropertyQueryVariables>;
 export const GetPresignedS3UrlDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPresignedS3Url"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"imgKey"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"commandType"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"altTag"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getPresignedS3Url"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"imgKey"},"value":{"kind":"Variable","name":{"kind":"Name","value":"imgKey"}}},{"kind":"Argument","name":{"kind":"Name","value":"commandType"},"value":{"kind":"Variable","name":{"kind":"Name","value":"commandType"}}},{"kind":"Argument","name":{"kind":"Name","value":"altTag"},"value":{"kind":"Variable","name":{"kind":"Name","value":"altTag"}}}]}]}}]} as unknown as DocumentNode<GetPresignedS3UrlQuery, GetPresignedS3UrlQueryVariables>;
