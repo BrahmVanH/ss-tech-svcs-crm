@@ -1,122 +1,79 @@
-import { useEffect, useState, useCallback } from 'react';
-import * as Auth from '../lib/auth';
-
-import Login from '../components/Login';
-import { useQuery, useLazyQuery } from '@apollo/client';
-import { GET_PROPERTIES, GET_HIDEAWAY_IMGS, GET_COTTAGE_IMGS } from '../lib/queries';
-import { Property } from '../lib/__generated__/graphql';
-import { GalImg } from '../types';
-import Card from '../components/Card';
 import styled from 'styled-components';
-import Loading from '../components/LoadingAnimation';
+import * as Auth from '../lib/auth';
+import Login from '../components/Login';
+import SideNav from '../components/SideNav';
 
-const LoginCardContainer = styled.div`
+const DashboardWrapper = styled.div`
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
 	align-items: center;
-	margin-top: 2rem;
+	justify-content: center;
 	width: 100%;
+	background-color: transparent;
+`;
+const DashboardContent = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 75%;
+	background-color: transparent;
+	border-radius: 6px;
+	border: 1px solid white;
 `;
 
 export default function Dashboard() {
-	const [properties, setProperties] = useState<Property[] | null>(null);
-	const [isMediumScreen, setIsMediumScreen] = useState<boolean>(false);
+	const [renderHome, setRenderHome] = useState<boolean>(true);
+	// Work orders, invoices, customers, properties
+	const [renderWorkOrders, setRenderWorkOrders] = useState<boolean>(false);
+	const [renderInvoices, setRenderInvoices] = useState<boolean>(false);
+	const [renderCustomers, setRenderCustomers] = useState<boolean>(false);
+	const [renderProperties, setRenderProperties] = useState<boolean>(false);
+	const [renderedComponent, setRenderedComponent] = useState<React.ReactNode>(<Home />);
 
-	const [galleryArray, setGalleryArray] = useState<GalImg[] | null>(null);
+	const handleRenderHome = () => {
+		setRenderHome(true);
+		setRenderWorkOrders(false);
+		setRenderInvoices(false);
+		setRenderCustomers(false);
+		setRenderProperties(false);
+	};
 
-	// Lazy queries to call image fetches for two properties
-	const [getCottageImages] = useLazyQuery(GET_COTTAGE_IMGS);
-	const [getHideawayImages] = useLazyQuery(GET_HIDEAWAY_IMGS);
+	const handleRenderWorkOrders = () => {
+		setRenderHome(false);
+		setRenderWorkOrders(true);
+		setRenderInvoices(false);
+		setRenderCustomers(false);
+		setRenderProperties(false);
+	};
 
-	const { loading, error, data } = useQuery(GET_PROPERTIES);
+	const handleRenderInvoices = () => {
+		setRenderHome(false);
+		setRenderWorkOrders(false);
+		setRenderInvoices(true);
+		setRenderCustomers(false);
+		setRenderProperties(false);
+	};
 
-	// Fetch images through Apollo API from S3
-	const handleFetchImgs = useCallback(
-		async (propertyName: string) => {
-			if (isMediumScreen) return console.log('medium screen');
-			console.log('fetching images');
-			try {
-				if (propertyName === "Captain's Hideaway") {
-					const { loading, error, data } = await getHideawayImages();
+	const handleRenderCustomers = () => {
+		setRenderHome(false);
+		setRenderWorkOrders(false);
+		setRenderInvoices(false);
+		setRenderCustomers(true);
+		setRenderProperties(false);
+	};
 
-					if (!loading && data) {
-						setGalleryArray(data.getHideawayImgs.galleryArray as GalImg[]);
-					}
+	const handleRenderProperties = () => {
+		setRenderHome(false);
+		setRenderWorkOrders(false);
+		setRenderInvoices(false);
+		setRenderCustomers(false);
+		setRenderProperties(true);
+	};
 
-					if (error) {
-						console.error(error);
-						throw new Error('Error fetching images');
-					}
-				} else if (propertyName === "Captain's Cottage") {
-					const { loading, error, data } = await getCottageImages();
-					if (!loading && data) {
-						setGalleryArray(data.getCottageImgs.galleryArray as GalImg[]);
-					}
-					if (error) {
-						console.error(error);
-						throw new Error('Error fetching images');
-					}
-				}
-			} catch (error) {
-				console.error(error);
-				throw new Error('Error fetching images');
-			}
-		},
-		[isMediumScreen]
-	);
-
-	useEffect(() => {
-		if (window.innerWidth < 768) {
-			setIsMediumScreen(true);
-		}
-	}, []);
-
-	useEffect(() => {
-		if (data?.getProperties && !loading && !error) {
-			setProperties(data.getProperties as Property[]);
-		}
-	}, [data]);
-
-	useEffect(() => {
-		if (error) {
-			console.error(error);
-		}
-	}, [error]);
-
-	useEffect(() => {
-		if (properties && !isMediumScreen) {
-			properties.forEach((property) => {
-				handleFetchImgs(property.propertyName);
-			});
-		}
-	}, [properties]);
-
-	return (
-		<>
-			{Auth.loggedIn() ? (
-				<>
-					{loading ? (
-						// <Loading />
-						<></>
-					) : (
-						<>
-							{properties && galleryArray ? (
-								<div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '2rem' }}>
-									{properties.map((property) => (
-										<Card key={property._id} galleryArray={galleryArray} property={property} />
-									))}
-								</div>
-							) : (
-								<Loading />
-							)}
-						</>
-					)}
-				</>
-			) : (
-				<LoginCardContainer>
-					<Login />
-				</LoginCardContainer>
-			)}
-		</>
-	);
+	return <DashboardWrapper>{!Auth.loggedIn() ? <Login /> : 
+  <>
+  <SideNav />
+  <DashboardContent>{renderedComponent}</DashboardContent>}</DashboardWrapper>;
+  </>
 }

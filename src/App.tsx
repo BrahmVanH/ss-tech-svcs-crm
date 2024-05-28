@@ -2,10 +2,10 @@ import { ApolloClient, HttpLink, InMemoryCache, ApolloProvider } from '@apollo/c
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { ThemeProvider } from 'styled-components';
-import Navbar from './components/Navbar';
-import Loading from './components/LoadingAnimation';
-import EditPhotos from './pages/EditPhotos';
-import Dashboard from './pages/Dashboard';
+import Navbar from './components_old/Navbar';
+import Loading from './components_old/LoadingAnimation';
+import EditPhotos from './pages_old/EditPhotos';
+import Dashboard from './pages_old/Dashboard';
 // const Dashboard = lazy(() => import('./pages/Dashboard'));
 // const EditPhotos = lazy(() => import('./pages/EditPhotos'));
 
@@ -73,6 +73,3 @@ function App() {
 }
 
 export default App;
-
-
-

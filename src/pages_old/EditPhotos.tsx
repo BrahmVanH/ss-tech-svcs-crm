@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState, lazy, Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
-import SideMenu from '../components/ImgUploadOverlay/SideMenu';
+import SideMenu from '../components_old/ImgUploadOverlay/SideMenu';
 import { useLazyQuery } from '@apollo/client';
 import { GET_COTTAGE_IMGS, GET_HIDEAWAY_IMGS } from '../lib/queries';
 import { GalImg } from '../types';
-import ImgUploadOverlay from '../components/ImgUploadOverlay/index';
-import Loading from '../components/LoadingAnimation';
-const ImageGallery = lazy(() => import('../components/ImageGallery'));
+import ImgUploadOverlay from '../components_old/ImgUploadOverlay/index';
+import Loading from '../components_old/LoadingAnimation';
+const ImageGallery = lazy(() => import('../components_old/ImageGallery'));
 
 export default function EditPhotos() {
 	// const { propertyName } = useParams<{ propertyName: string }>();
