@@ -46,6 +46,10 @@ export type CreateCustomerInput = {
   customer: NewCustomerInput;
 };
 
+export type CreateInvoiceInput = {
+  invoice: NewInvoiceInput;
+};
+
 export type CreatePropertyInput = {
   property: NewPropertyInput;
 };
@@ -69,6 +73,7 @@ export type Customer = {
   createdAt: Scalars['String']['output'];
   email?: Maybe<Scalars['String']['output']>;
   firstName: Scalars['String']['output'];
+  invoices?: Maybe<Array<Maybe<Invoice>>>;
   lastName: Scalars['String']['output'];
   phone: Scalars['Int']['output'];
   workOrders?: Maybe<Array<Maybe<WorkOrder>>>;
@@ -84,6 +89,19 @@ export type DeleteS3ObjectResponse = {
   status: Scalars['Int']['output'];
 };
 
+export type Invoice = {
+  __typename?: 'Invoice';
+  _id: Scalars['ID']['output'];
+  charged: Scalars['Boolean']['output'];
+  customerId: Customer;
+  date: Scalars['String']['output'];
+  invoiceNumber: Scalars['String']['output'];
+  paid: Scalars['Boolean']['output'];
+  quote?: Maybe<Scalars['Float']['output']>;
+  total: Scalars['Float']['output'];
+  workOrders?: Maybe<Array<WorkOrder>>;
+};
+
 export type LoginUserInput = {
   userPassword: Scalars['String']['input'];
   username: Scalars['String']['input'];
@@ -92,10 +110,12 @@ export type LoginUserInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   createCustomer: Customer;
+  createInvoice: Invoice;
   createProperty: Property;
   createUser: Auth;
   createWorkOrder: WorkOrder;
   deleteCustomer: Customer;
+  deleteInvoice: Invoice;
   deleteProperty: Property;
   deleteS3Objects: DeleteS3ObjectResponse;
   deleteWorkOrder: WorkOrder;
@@ -106,6 +126,13 @@ export type Mutation = {
   updateCustomerFirstName: Customer;
   updateCustomerLastName: Customer;
   updateCustomerPhone: Customer;
+  updateInvoiceCharged: Invoice;
+  updateInvoiceCustomerId: Invoice;
+  updateInvoiceDate: Invoice;
+  updateInvoicePaid: Invoice;
+  updateInvoiceQuote: Invoice;
+  updateInvoiceTotal: Invoice;
+  updateInvoiceWorkOrders: Invoice;
   updatePropertyAddress: Property;
   updatePropertyAgent: Property;
   updatePropertyDescription: Property;
@@ -135,6 +162,11 @@ export type MutationCreateCustomerArgs = {
 };
 
 
+export type MutationCreateInvoiceArgs = {
+  input: CreateInvoiceInput;
+};
+
+
 export type MutationCreatePropertyArgs = {
   input: CreatePropertyInput;
 };
@@ -152,6 +184,11 @@ export type MutationCreateWorkOrderArgs = {
 
 export type MutationDeleteCustomerArgs = {
   input: RemoveCustomerInput;
+};
+
+
+export type MutationDeleteInvoiceArgs = {
+  input: RemoveInvoiceInput;
 };
 
 
@@ -202,6 +239,41 @@ export type MutationUpdateCustomerLastNameArgs = {
 
 export type MutationUpdateCustomerPhoneArgs = {
   input: UpdateCustomerPhoneInput;
+};
+
+
+export type MutationUpdateInvoiceChargedArgs = {
+  input: UpdateInvoiceChargedInput;
+};
+
+
+export type MutationUpdateInvoiceCustomerIdArgs = {
+  input: UpdateInvoiceCustomerIdInput;
+};
+
+
+export type MutationUpdateInvoiceDateArgs = {
+  input: UpdateInvoiceDateInput;
+};
+
+
+export type MutationUpdateInvoicePaidArgs = {
+  input: UpdateInvoicePaidInput;
+};
+
+
+export type MutationUpdateInvoiceQuoteArgs = {
+  input: UpdateInvoiceQuoteInput;
+};
+
+
+export type MutationUpdateInvoiceTotalArgs = {
+  input: UpdateInvoiceTotalInput;
+};
+
+
+export type MutationUpdateInvoiceWorkOrdersArgs = {
+  input: UpdateInvoiceWorkOrdersInput;
 };
 
 
@@ -317,6 +389,17 @@ export type NewCustomerInput = {
   phone: Scalars['Int']['input'];
 };
 
+export type NewInvoiceInput = {
+  charged: Scalars['Boolean']['input'];
+  customerId: Scalars['ID']['input'];
+  date: Scalars['String']['input'];
+  invoiceNumber: Scalars['String']['input'];
+  paid: Scalars['Boolean']['input'];
+  quote?: InputMaybe<Scalars['Float']['input']>;
+  total?: InputMaybe<Scalars['Float']['input']>;
+  workOrders?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+};
+
 export type NewPropertyInput = {
   agent: Scalars['ID']['input'];
   propertyAddress: AddressInput;
@@ -354,6 +437,10 @@ export type Query = {
   getPresignedS3Url: Scalars['String']['output'];
   queryCustomerById: Customer;
   queryCustomers?: Maybe<Array<Customer>>;
+  queryInvoiceById: Invoice;
+  queryInvoices?: Maybe<Array<Invoice>>;
+  queryInvoicesByCustomer?: Maybe<Array<Invoice>>;
+  queryInvoicesByWorkOrder?: Maybe<Array<Invoice>>;
   queryProperties?: Maybe<Array<Property>>;
   queryPropertyById: Property;
   queryWorkOrderById: WorkOrder;
@@ -372,6 +459,21 @@ export type QueryGetPresignedS3UrlArgs = {
 
 export type QueryQueryCustomerByIdArgs = {
   customerId: Scalars['ID']['input'];
+};
+
+
+export type QueryQueryInvoiceByIdArgs = {
+  invoiceId: Scalars['ID']['input'];
+};
+
+
+export type QueryQueryInvoicesByCustomerArgs = {
+  customerId: Scalars['ID']['input'];
+};
+
+
+export type QueryQueryInvoicesByWorkOrderArgs = {
+  workOrderId: Scalars['ID']['input'];
 };
 
 
@@ -396,6 +498,10 @@ export type QueryQueryWorkOrdersByPropertyArgs = {
 
 export type RemoveCustomerInput = {
   customerId: Scalars['ID']['input'];
+};
+
+export type RemoveInvoiceInput = {
+  invoiceId: Scalars['ID']['input'];
 };
 
 export type RemovePropertyInput = {
@@ -426,6 +532,11 @@ export type UpdateCustomerFirstNameInput = {
   firstName: Scalars['String']['input'];
 };
 
+export type UpdateCustomerInvoicesInput = {
+  customerId: Scalars['ID']['input'];
+  invoice?: InputMaybe<Scalars['ID']['input']>;
+};
+
 export type UpdateCustomerLastNameInput = {
   customerId: Scalars['ID']['input'];
   lastName: Scalars['String']['input'];
@@ -434,6 +545,41 @@ export type UpdateCustomerLastNameInput = {
 export type UpdateCustomerPhoneInput = {
   customerId: Scalars['ID']['input'];
   phone: Scalars['Int']['input'];
+};
+
+export type UpdateInvoiceChargedInput = {
+  charged: Scalars['Boolean']['input'];
+  invoiceId: Scalars['ID']['input'];
+};
+
+export type UpdateInvoiceCustomerIdInput = {
+  customerId: Scalars['ID']['input'];
+  invoiceId: Scalars['ID']['input'];
+};
+
+export type UpdateInvoiceDateInput = {
+  date: Scalars['String']['input'];
+  invoiceId: Scalars['ID']['input'];
+};
+
+export type UpdateInvoicePaidInput = {
+  invoiceId: Scalars['ID']['input'];
+  paid: Scalars['Boolean']['input'];
+};
+
+export type UpdateInvoiceQuoteInput = {
+  invoiceId: Scalars['ID']['input'];
+  quote: Scalars['Float']['input'];
+};
+
+export type UpdateInvoiceTotalInput = {
+  invoiceId: Scalars['ID']['input'];
+  total: Scalars['Float']['input'];
+};
+
+export type UpdateInvoiceWorkOrdersInput = {
+  invoiceId: Scalars['ID']['input'];
+  workOrders: Array<Scalars['ID']['input']>;
 };
 
 export type UpdatePropertyAddressInput = {
@@ -518,6 +664,11 @@ export type UpdateWorkOrderDescriptionInput = {
   workOrderId: Scalars['ID']['input'];
 };
 
+export type UpdateWorkOrderInvoicesInput = {
+  invoice?: InputMaybe<Scalars['ID']['input']>;
+  workOrderId: Scalars['ID']['input'];
+};
+
 export type UpdateWorkOrderPaidInput = {
   paid: Scalars['Boolean']['input'];
   workOrderId: Scalars['ID']['input'];
@@ -562,6 +713,7 @@ export type WorkOrder = {
   customerId?: Maybe<Customer>;
   date: Scalars['String']['output'];
   description: Scalars['String']['output'];
+  invoices?: Maybe<Array<Maybe<Invoice>>>;
   lastUpdated: Scalars['String']['output'];
   paid: Scalars['Boolean']['output'];
   propertyId?: Maybe<Property>;
@@ -824,6 +976,69 @@ export type DeleteWorkOrderMutationVariables = Exact<{
 
 export type DeleteWorkOrderMutation = { __typename?: 'Mutation', deleteWorkOrder: { __typename?: 'WorkOrder', _id: string } };
 
+export type CreateInvoiceMutationVariables = Exact<{
+  input: CreateInvoiceInput;
+}>;
+
+
+export type CreateInvoiceMutation = { __typename?: 'Mutation', createInvoice: { __typename?: 'Invoice', _id: string, date: string } };
+
+export type UpdateInvoiceDateMutationVariables = Exact<{
+  input: UpdateInvoiceDateInput;
+}>;
+
+
+export type UpdateInvoiceDateMutation = { __typename?: 'Mutation', updateInvoiceDate: { __typename?: 'Invoice', _id: string, date: string } };
+
+export type UpdateInvoiceCustomerIdMutationVariables = Exact<{
+  input: UpdateInvoiceCustomerIdInput;
+}>;
+
+
+export type UpdateInvoiceCustomerIdMutation = { __typename?: 'Mutation', updateInvoiceCustomerId: { __typename?: 'Invoice', _id: string, date: string } };
+
+export type UpdateInvoiceWorkOrdersMutationVariables = Exact<{
+  input: UpdateInvoiceWorkOrdersInput;
+}>;
+
+
+export type UpdateInvoiceWorkOrdersMutation = { __typename?: 'Mutation', updateInvoiceWorkOrders: { __typename?: 'Invoice', _id: string, date: string } };
+
+export type UpdateInvoiceQuoteMutationVariables = Exact<{
+  input: UpdateInvoiceQuoteInput;
+}>;
+
+
+export type UpdateInvoiceQuoteMutation = { __typename?: 'Mutation', updateInvoiceQuote: { __typename?: 'Invoice', _id: string, date: string } };
+
+export type UpdateInvoiceTotalMutationVariables = Exact<{
+  input: UpdateInvoiceTotalInput;
+}>;
+
+
+export type UpdateInvoiceTotalMutation = { __typename?: 'Mutation', updateInvoiceTotal: { __typename?: 'Invoice', _id: string, date: string } };
+
+export type UpdateInvoiceChargedMutationVariables = Exact<{
+  input: UpdateInvoiceChargedInput;
+}>;
+
+
+export type UpdateInvoiceChargedMutation = { __typename?: 'Mutation', updateInvoiceCharged: { __typename?: 'Invoice', _id: string, date: string } };
+
+export type UpdateInvoicePaidMutationVariables = Exact<{
+  input: UpdateInvoicePaidInput;
+}>;
+
+
+export type UpdateInvoicePaidMutation = { __typename?: 'Mutation', updateInvoicePaid: { __typename?: 'Invoice', _id: string, date: string } };
+
+export type DeleteInvoiceMutationVariables = Exact<{
+  input: RemoveInvoiceInput;
+}>;
+
+
+export type DeleteInvoiceMutation = { __typename?: 'Mutation', deleteInvoice: { __typename?: 'Invoice', _id: string, date: string } };
+
 export type DeleteS3ObjectsMutationVariables = Exact<{
   input: DeleteS3ObjectInput;
 }>;
@@ -886,6 +1101,32 @@ export type QueryWorkOrdersByPropertyQueryVariables = Exact<{
 
 export type QueryWorkOrdersByPropertyQuery = { __typename?: 'Query', queryWorkOrdersByProperty?: Array<{ __typename?: 'WorkOrder', _id: string, date: string, lastUpdated: string, type: string, description: string, quote?: number | null, total?: number | null, charged: boolean, paid: boolean, comments?: string | null, customerId?: { __typename?: 'Customer', _id: string, firstName: string, lastName: string, email?: string | null, phone: number, businessName: string } | null, propertyId?: { __typename?: 'Property', _id: string, propertyName: string, propertyDescription: string, s3FolderKey: string, propertyAddress: { __typename?: 'Address', street: string, city: string, state: string, zip: string }, agent: { __typename?: 'Customer', _id: string, firstName: string, lastName: string, phone: number } } | null }> | null };
 
+export type QueryInvoicesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type QueryInvoicesQuery = { __typename?: 'Query', queryInvoices?: Array<{ __typename?: 'Invoice', _id: string, invoiceNumber: string, date: string, quote?: number | null, total: number, charged: boolean, paid: boolean, customerId: { __typename?: 'Customer', _id: string, firstName: string, lastName: string, email?: string | null, phone: number, businessName: string }, workOrders?: Array<{ __typename?: 'WorkOrder', _id: string, date: string, type: string }> | null }> | null };
+
+export type QueryInvoiceByIdQueryVariables = Exact<{
+  invoiceId: Scalars['ID']['input'];
+}>;
+
+
+export type QueryInvoiceByIdQuery = { __typename?: 'Query', queryInvoiceById: { __typename?: 'Invoice', _id: string, invoiceNumber: string, date: string, quote?: number | null, total: number, charged: boolean, paid: boolean, customerId: { __typename?: 'Customer', _id: string, firstName: string, lastName: string, email?: string | null, phone: number, businessName: string }, workOrders?: Array<{ __typename?: 'WorkOrder', _id: string, date: string, type: string }> | null } };
+
+export type QueryInvoicesByCustomerQueryVariables = Exact<{
+  customerId: Scalars['ID']['input'];
+}>;
+
+
+export type QueryInvoicesByCustomerQuery = { __typename?: 'Query', queryInvoicesByCustomer?: Array<{ __typename?: 'Invoice', _id: string, invoiceNumber: string, date: string, quote?: number | null, total: number, charged: boolean, paid: boolean, customerId: { __typename?: 'Customer', _id: string, firstName: string, lastName: string, email?: string | null, phone: number, businessName: string }, workOrders?: Array<{ __typename?: 'WorkOrder', _id: string, date: string, type: string }> | null }> | null };
+
+export type QueryInvoicesByWorkOrderQueryVariables = Exact<{
+  workOrderId: Scalars['ID']['input'];
+}>;
+
+
+export type QueryInvoicesByWorkOrderQuery = { __typename?: 'Query', queryInvoicesByWorkOrder?: Array<{ __typename?: 'Invoice', _id: string, invoiceNumber: string, date: string, quote?: number | null, total: number, charged: boolean, paid: boolean, customerId: { __typename?: 'Customer', _id: string, firstName: string, lastName: string, email?: string | null, phone: number, businessName: string }, workOrders?: Array<{ __typename?: 'WorkOrder', _id: string, date: string, type: string }> | null }> | null };
+
 export type GetPresignedS3UrlQueryVariables = Exact<{
   imgKey: Scalars['String']['input'];
   commandType: Scalars['String']['input'];
@@ -931,6 +1172,15 @@ export const UpdateWorkOrderChargedDocument = {"kind":"Document","definitions":[
 export const UpdateWorkOrderPaidDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateWorkOrderPaid"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateWorkOrderPaidInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateWorkOrderPaid"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"paid"}}]}}]}}]} as unknown as DocumentNode<UpdateWorkOrderPaidMutation, UpdateWorkOrderPaidMutationVariables>;
 export const UpdateWorkOrderCommentsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateWorkOrderComments"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateWorkOrderCommentsInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateWorkOrderComments"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"comments"}}]}}]}}]} as unknown as DocumentNode<UpdateWorkOrderCommentsMutation, UpdateWorkOrderCommentsMutationVariables>;
 export const DeleteWorkOrderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"deleteWorkOrder"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RemoveWorkOrderInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteWorkOrder"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}}]}}]}}]} as unknown as DocumentNode<DeleteWorkOrderMutation, DeleteWorkOrderMutationVariables>;
+export const CreateInvoiceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateInvoice"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateInvoiceInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createInvoice"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}}]}}]}}]} as unknown as DocumentNode<CreateInvoiceMutation, CreateInvoiceMutationVariables>;
+export const UpdateInvoiceDateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateInvoiceDate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateInvoiceDateInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateInvoiceDate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}}]}}]}}]} as unknown as DocumentNode<UpdateInvoiceDateMutation, UpdateInvoiceDateMutationVariables>;
+export const UpdateInvoiceCustomerIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateInvoiceCustomerId"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateInvoiceCustomerIdInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateInvoiceCustomerId"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}}]}}]}}]} as unknown as DocumentNode<UpdateInvoiceCustomerIdMutation, UpdateInvoiceCustomerIdMutationVariables>;
+export const UpdateInvoiceWorkOrdersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateInvoiceWorkOrders"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateInvoiceWorkOrdersInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateInvoiceWorkOrders"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}}]}}]}}]} as unknown as DocumentNode<UpdateInvoiceWorkOrdersMutation, UpdateInvoiceWorkOrdersMutationVariables>;
+export const UpdateInvoiceQuoteDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateInvoiceQuote"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateInvoiceQuoteInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateInvoiceQuote"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}}]}}]}}]} as unknown as DocumentNode<UpdateInvoiceQuoteMutation, UpdateInvoiceQuoteMutationVariables>;
+export const UpdateInvoiceTotalDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateInvoiceTotal"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateInvoiceTotalInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateInvoiceTotal"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}}]}}]}}]} as unknown as DocumentNode<UpdateInvoiceTotalMutation, UpdateInvoiceTotalMutationVariables>;
+export const UpdateInvoiceChargedDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateInvoiceCharged"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateInvoiceChargedInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateInvoiceCharged"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}}]}}]}}]} as unknown as DocumentNode<UpdateInvoiceChargedMutation, UpdateInvoiceChargedMutationVariables>;
+export const UpdateInvoicePaidDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateInvoicePaid"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UpdateInvoicePaidInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateInvoicePaid"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}}]}}]}}]} as unknown as DocumentNode<UpdateInvoicePaidMutation, UpdateInvoicePaidMutationVariables>;
+export const DeleteInvoiceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"deleteInvoice"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"RemoveInvoiceInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteInvoice"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}}]}}]}}]} as unknown as DocumentNode<DeleteInvoiceMutation, DeleteInvoiceMutationVariables>;
 export const DeleteS3ObjectsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteS3Objects"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DeleteS3ObjectInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteS3Objects"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]} as unknown as DocumentNode<DeleteS3ObjectsMutation, DeleteS3ObjectsMutationVariables>;
 export const GetAllUsersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllUsers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getAllUsers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"username"}}]}}]}}]} as unknown as DocumentNode<GetAllUsersQuery, GetAllUsersQueryVariables>;
 export const QueryCustomersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"QueryCustomers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"queryCustomers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"businessName"}},{"kind":"Field","name":{"kind":"Name","value":"workOrders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"propertyId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"propertyName"}},{"kind":"Field","name":{"kind":"Name","value":"propertyAddress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"street"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"zip"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"charged"}},{"kind":"Field","name":{"kind":"Name","value":"paid"}}]}}]}}]}}]} as unknown as DocumentNode<QueryCustomersQuery, QueryCustomersQueryVariables>;
@@ -941,4 +1191,8 @@ export const QueryWorkOrdersDocument = {"kind":"Document","definitions":[{"kind"
 export const QueryWorkOrderByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"QueryWorkOrderById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"workOrderId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"queryWorkOrderById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"workOrderId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"workOrderId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"lastUpdated"}},{"kind":"Field","name":{"kind":"Name","value":"customerId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"businessName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"propertyId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"propertyName"}},{"kind":"Field","name":{"kind":"Name","value":"propertyAddress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"street"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"zip"}}]}},{"kind":"Field","name":{"kind":"Name","value":"propertyDescription"}},{"kind":"Field","name":{"kind":"Name","value":"agent"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}},{"kind":"Field","name":{"kind":"Name","value":"s3FolderKey"}}]}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"quote"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"charged"}},{"kind":"Field","name":{"kind":"Name","value":"paid"}},{"kind":"Field","name":{"kind":"Name","value":"comments"}}]}}]}}]} as unknown as DocumentNode<QueryWorkOrderByIdQuery, QueryWorkOrderByIdQueryVariables>;
 export const QueryWorkOrdersByCustomerDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"QueryWorkOrdersByCustomer"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"customerId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"queryWorkOrdersByCustomer"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"customerId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"customerId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"lastUpdated"}},{"kind":"Field","name":{"kind":"Name","value":"customerId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"businessName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"propertyId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"propertyName"}},{"kind":"Field","name":{"kind":"Name","value":"propertyAddress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"street"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"zip"}}]}},{"kind":"Field","name":{"kind":"Name","value":"propertyDescription"}},{"kind":"Field","name":{"kind":"Name","value":"agent"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}},{"kind":"Field","name":{"kind":"Name","value":"s3FolderKey"}}]}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"quote"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"charged"}},{"kind":"Field","name":{"kind":"Name","value":"paid"}},{"kind":"Field","name":{"kind":"Name","value":"comments"}}]}}]}}]} as unknown as DocumentNode<QueryWorkOrdersByCustomerQuery, QueryWorkOrdersByCustomerQueryVariables>;
 export const QueryWorkOrdersByPropertyDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"QueryWorkOrdersByProperty"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"propertyId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"queryWorkOrdersByProperty"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"propertyId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"propertyId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"lastUpdated"}},{"kind":"Field","name":{"kind":"Name","value":"customerId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"businessName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"propertyId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"propertyName"}},{"kind":"Field","name":{"kind":"Name","value":"propertyAddress"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"street"}},{"kind":"Field","name":{"kind":"Name","value":"city"}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"zip"}}]}},{"kind":"Field","name":{"kind":"Name","value":"propertyDescription"}},{"kind":"Field","name":{"kind":"Name","value":"agent"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}}]}},{"kind":"Field","name":{"kind":"Name","value":"s3FolderKey"}}]}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"quote"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"charged"}},{"kind":"Field","name":{"kind":"Name","value":"paid"}},{"kind":"Field","name":{"kind":"Name","value":"comments"}}]}}]}}]} as unknown as DocumentNode<QueryWorkOrdersByPropertyQuery, QueryWorkOrdersByPropertyQueryVariables>;
+export const QueryInvoicesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"QueryInvoices"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"queryInvoices"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"invoiceNumber"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"customerId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"businessName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"workOrders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quote"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"charged"}},{"kind":"Field","name":{"kind":"Name","value":"paid"}}]}}]}}]} as unknown as DocumentNode<QueryInvoicesQuery, QueryInvoicesQueryVariables>;
+export const QueryInvoiceByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"QueryInvoiceById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"invoiceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"queryInvoiceById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"invoiceId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"invoiceId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"invoiceNumber"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"customerId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"businessName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"workOrders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quote"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"charged"}},{"kind":"Field","name":{"kind":"Name","value":"paid"}}]}}]}}]} as unknown as DocumentNode<QueryInvoiceByIdQuery, QueryInvoiceByIdQueryVariables>;
+export const QueryInvoicesByCustomerDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"QueryInvoicesByCustomer"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"customerId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"queryInvoicesByCustomer"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"customerId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"customerId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"invoiceNumber"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"customerId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"businessName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"workOrders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quote"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"charged"}},{"kind":"Field","name":{"kind":"Name","value":"paid"}}]}}]}}]} as unknown as DocumentNode<QueryInvoicesByCustomerQuery, QueryInvoicesByCustomerQueryVariables>;
+export const QueryInvoicesByWorkOrderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"QueryInvoicesByWorkOrder"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"workOrderId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"queryInvoicesByWorkOrder"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"workOrderId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"workOrderId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"invoiceNumber"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"customerId"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone"}},{"kind":"Field","name":{"kind":"Name","value":"businessName"}}]}},{"kind":"Field","name":{"kind":"Name","value":"workOrders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}},{"kind":"Field","name":{"kind":"Name","value":"quote"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"charged"}},{"kind":"Field","name":{"kind":"Name","value":"paid"}}]}}]}}]} as unknown as DocumentNode<QueryInvoicesByWorkOrderQuery, QueryInvoicesByWorkOrderQueryVariables>;
 export const GetPresignedS3UrlDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPresignedS3Url"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"imgKey"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"commandType"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"altTag"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getPresignedS3Url"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"imgKey"},"value":{"kind":"Variable","name":{"kind":"Name","value":"imgKey"}}},{"kind":"Argument","name":{"kind":"Name","value":"commandType"},"value":{"kind":"Variable","name":{"kind":"Name","value":"commandType"}}},{"kind":"Argument","name":{"kind":"Name","value":"altTag"},"value":{"kind":"Variable","name":{"kind":"Name","value":"altTag"}}}]}]}}]} as unknown as DocumentNode<GetPresignedS3UrlQuery, GetPresignedS3UrlQueryVariables>;

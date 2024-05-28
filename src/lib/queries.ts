@@ -291,6 +291,114 @@ export const QUERY_WORK_ORDER_BY_PROPERTY_ID = gql(/* GraphQL */ `
 	}
 `);
 
+export const QUERY_INVOICES = gql(/* GraphQL */ `
+	query QueryInvoices {
+		queryInvoices {
+			_id
+			invoiceNumber
+			date
+			customerId {
+				_id
+				firstName
+				lastName
+				email
+				phone
+				businessName
+			}
+			workOrders {
+				_id
+				date
+				type
+			}
+			quote
+			total
+			charged
+			paid
+		}
+	}
+`);
+
+export const QUERY_INVOICE_BY_ID = gql(/* GraphQL */ `
+	query QueryInvoiceById($invoiceId: ID!) {
+		queryInvoiceById(invoiceId: $invoiceId) {
+			_id
+			invoiceNumber
+			date
+			customerId {
+				_id
+				firstName
+				lastName
+				email
+				phone
+				businessName
+			}
+			workOrders {
+				_id
+				date
+				type
+			}
+			quote
+			total
+			charged
+			paid
+		}
+	}
+`);
+
+export const QUERY_INVOICE_BY_CUSTOMER_ID = gql(/* GraphQL */ `
+	query QueryInvoicesByCustomer($customerId: ID!) {
+		queryInvoicesByCustomer(customerId: $customerId) {
+			_id
+			invoiceNumber
+			date
+			customerId {
+				_id
+				firstName
+				lastName
+				email
+				phone
+				businessName
+			}
+			workOrders {
+				_id
+				date
+				type
+			}
+			quote
+			total
+			charged
+			paid
+		}
+	}
+`);
+
+export const QUERY_INVOICE_BY_WORK_ORDER_ID = gql(/* GraphQL */ `
+	query QueryInvoicesByWorkOrder($workOrderId: ID!) {
+		queryInvoicesByWorkOrder(workOrderId: $workOrderId) {
+			_id
+			invoiceNumber
+			date
+			customerId {
+				_id
+				firstName
+				lastName
+				email
+				phone
+				businessName
+			}
+			workOrders {
+				_id
+				date
+				type
+			}
+			quote
+			total
+			charged
+			paid
+		}
+	}
+`);
+
 
 
 export const GET_PRESEIGNED_URL = gql(/* GraphQL */ `

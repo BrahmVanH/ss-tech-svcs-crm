@@ -405,7 +405,6 @@ export const UPDATE_PROPERTY_AGENT = gql(/* GraphQL */ `
 			# propertyDescription
 			agent {
 				_id
-				
 			}
 			# s3FolderKey
 		}
@@ -703,9 +702,86 @@ export const DELETE_WORK_ORDER = gql(/* GraphQL */ `
 	}
 `);
 
+export const CREATE_INVOICE = gql(/* GraphQL */ `
+	mutation CreateInvoice($input: CreateInvoiceInput!) {
+		createInvoice(input: $input) {
+			_id
+			date
+		}
+	}
+`);
 
+export const UPDATE_INVOICE_DATE = gql(/* GraphQL */ `
+	mutation UpdateInvoiceDate($input: UpdateInvoiceDateInput!) {
+		updateInvoiceDate(input: $input) {
+			_id
+			date
+		}
+	}
+`);
 
+export const UPDATE_INVOICE_CUSTOMER_ID = gql(/* GraphQL */ `
+	mutation UpdateInvoiceCustomerId($input: UpdateInvoiceCustomerIdInput!) {
+		updateInvoiceCustomerId(input: $input) {
+			_id
+			date
+		}
+	}
+`);
 
+export const UPDATE_INVOICE_WORKORDERS = gql(/* GraphQL */ `
+	mutation UpdateInvoiceWorkOrders($input: UpdateInvoiceWorkOrdersInput!) {
+		updateInvoiceWorkOrders(input: $input) {
+			_id
+			date
+		}
+	}
+`);
+
+export const UPDATE_INVOICE_QUOTE = gql(/* GraphQL */ `
+	mutation UpdateInvoiceQuote($input: UpdateInvoiceQuoteInput!) {
+		updateInvoiceQuote(input: $input) {
+			_id
+			date
+		}
+	}
+`);
+
+export const UPDATE_INVOICE_TOTAL = gql(/* GraphQL */ `
+	mutation UpdateInvoiceTotal($input: UpdateInvoiceTotalInput!) {
+		updateInvoiceTotal(input: $input) {
+			_id
+			date
+		}
+	}
+`);
+
+export const UPDATE_INVOICE_CHARGED = gql(/* GraphQL */ `
+	mutation UpdateInvoiceCharged($input: UpdateInvoiceChargedInput!) {
+		updateInvoiceCharged(input: $input) {
+			_id
+			date
+		}
+	}
+`);
+
+export const UPDATE_INVOICE_PAID = gql(/* GraphQL */ `
+	mutation UpdateInvoicePaid($input: UpdateInvoicePaidInput!) {
+		updateInvoicePaid(input: $input) {
+			_id
+			date
+		}
+	}
+`);
+
+export const DELETE_INVOICE = gql(/* GraphQL */ `
+	mutation deleteInvoice($input: RemoveInvoiceInput!) {
+		deleteInvoice(input: $input) {
+			_id
+			date
+		}
+	}
+`);
 
 export const DELETE_S3_IMGS = gql(/* GraphQL */ `
 	mutation DeleteS3Objects($input: DeleteS3ObjectInput!) {
