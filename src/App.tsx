@@ -4,8 +4,7 @@ import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import Navbar from './components_old/Navbar';
 import Loading from './components_old/LoadingAnimation';
-import EditPhotos from './pages_old/EditPhotos';
-import Dashboard from './pages_old/Dashboard';
+import Dashboard from './pages/Dashboard';
 // const Dashboard = lazy(() => import('./pages/Dashboard'));
 // const EditPhotos = lazy(() => import('./pages/EditPhotos'));
 
@@ -61,10 +60,8 @@ function App() {
 		<Router>
 			<ApolloProvider client={client}>
 				<ThemeProvider theme={theme}>
-					<Navbar />
 					<Routes>
 						<Route path='/' element={<Dashboard />} />
-						<Route path='/photos/:property' element={<EditPhotos />} />
 					</Routes>
 				</ThemeProvider>
 			</ApolloProvider>

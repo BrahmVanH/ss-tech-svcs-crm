@@ -4,7 +4,7 @@ import { LOGIN_USER } from '../lib/mutations';
 import { useForm, FieldValues } from 'react-hook-form';
 import * as Auth from '../lib/auth';
 import styled from 'styled-components';
-import { Icon, TickCircleIcon } from 'evergreen-ui';
+import { Icon, TickCircleIcon, LogInIcon, SendMessageIcon } from 'evergreen-ui';
 
 import { LoginUserInput } from '../lib/__generated__/graphql';
 
@@ -42,7 +42,7 @@ const Form = styled.form`
 	flex-direction: column;
 	padding: 0.5rem;
 	margin: 0.5rem;
-	border-radius: 65px;
+	border-radius: 36px;
 	border: 1px solid white;
 
 	@media (min-width: 768px) {
@@ -59,30 +59,36 @@ const AlertRect = styled.div`
 	padding: 0rem 0.25rem;
 `;
 
-const HeaderContainer = styled.div(
-	({ theme }) => `
-  margin-bottom: 0.5rem;
-  width: 100%;
-  border-bottom: 2px solid transparent;
-  border-image-source: linear-gradient( to right, ${theme.primaryStroke});
-	border-image-slice: 1;
-	border-image-outset: 0;
-	border-image-repeat: stretch;
-`
-);
-
-const InputWrapper = styled.div`
-	margin-top: 1rem;
-	padding: 0.5rem;
-	border-color: 1px solid white;
-	border-radius: 6px;
+const HeaderContainer = styled.div`
+	width: 100%;
+	text-align: center;
+	color: white;
 `;
+const InputWrapper = styled.div`
+	margin: 1rem 0.5rem 0rem;
+	padding: 4px;
+	border: 1px solid white;
+	border-radius: 6px;
+	`;
 
 const Input = styled.input<{ $width?: string }>`
-	height: 2rem;
+	background-color: transparent;
+	border-radius: 6px;
+	border: none;
+	color: #ffffff;
 	width: ${(props) => props.$width ?? ''};
+	&::placeholder {
+		text-align: center;
+		padding: none;
+		color: #ffffff5c;
+	}
 	@media (max-width: 1400) {
 		height: 3rem;
+	}
+
+	&:focus {
+		outline: #ffffff63;
+		box-shadow: 0 0 0 2px #ffffff63;
 	}
 `;
 
@@ -93,11 +99,15 @@ const AlertMessage = styled.p`
 `;
 
 export const ButtonWrapper = styled.div`
-	margin-top: 2rem;
-	display: flex;
-	justify-content: space-around;
-	align-items: flex-end;
-	width: 100%;
+	margin: 1rem;
+	padding: 4px;
+
+	/* add on hover attribute that highlights the button in a very transparent white */
+
+
+	&:active {
+		transform: scale(0.95);
+	}
 `;
 
 const Button = styled.button<IButtonSCProps>(({ theme, $margin, $width, $fontSize, $useBorder }) => ({
@@ -106,7 +116,7 @@ const Button = styled.button<IButtonSCProps>(({ theme, $margin, $width, $fontSiz
 	margin: $margin || '0rem',
 	padding: '0rem',
 	backgroundColor: 'transparent',
-	color: theme.stroke,
+	color: 'white',
 	fontSize: $fontSize || '1.5rem',
 	border: $useBorder ? `1px solid ${theme.stroke}` : 'none',
 	borderRadius: $useBorder ? '10px' : '',
@@ -184,15 +194,15 @@ export default function Login() {
 
 	return (
 		<LoginCard>
-			<HeaderContainer>
-				<h2 style={{ textAlign: 'center', paddingTop: '1rem' }}>Login</h2>
-			</HeaderContainer>
 			{formSubmitted ? (
 				<div style={{ margin: '2rem' }}>
 					<Icon icon={TickCircleIcon} color='success' size={24} />
 				</div>
 			) : (
 				<Form ref={form} onSubmit={handleSubmit((data) => setInput(data))}>
+					<HeaderContainer>
+						<h2>Login</h2>
+					</HeaderContainer>
 					<InputWrapper>
 						<Input autoComplete='username' type='text' minLength={5} maxLength={25} placeholder='username' {...register('username', { required: true })} />
 					</InputWrapper>
@@ -210,7 +220,9 @@ export default function Login() {
 						<></>
 					)}
 					<ButtonWrapper>
-						<Button type='submit'>Login</Button>
+						<Button type='submit'>
+							<Icon icon={SendMessageIcon} size={18} />
+						</Button>
 					</ButtonWrapper>
 				</Form>
 			)}
