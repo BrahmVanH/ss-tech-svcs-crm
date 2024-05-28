@@ -1,6 +1,14 @@
 // // import { ISecuritiesRating } from '../types';
 // // import { Entry } from '../__generated__/graphql';
 
+import { WorkOrder } from "./__generated__/graphql";
+
+
+// export const formatWorkOrders = (workOrders: WorkOrder[]) => {
+// 	// map over each workOrder and for each property on the workorder that 
+// 	// is null or undefined, replace with a nullish but valid value
+// 	//  depending on the 
+// 	const 
 // const formatDate = (date: string) => {
 // 	const d = new Date(date);
 // 	const year = d.getFullYear();

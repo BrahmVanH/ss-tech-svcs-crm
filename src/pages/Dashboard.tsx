@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import * as Auth from '../lib/auth';
 import Login from '../components/Login';
 import SideNav from '../components/SideNav';
+import Home from '../components/Home';
+import WorkOrders from '../components/WorkOrders';
+import Customers from '../components/Customers';
+import Invoices from '../components/Invoices';
 
 const DashboardWrapper = styled.div`
 	display: flex;
