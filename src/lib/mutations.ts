@@ -279,6 +279,15 @@ export const UPDATE_CUSTOMER_BUSINESS_NAME = gql(/* GraphQL */ `
 	}
 `);
 
+export const UPDATE_CUSTOMER_PROPERTIES = gql(/* GraphQL */ `
+	mutation UpdateCustomerProperties($input: UpdateCustomerPropertiesInput!) {
+		updateCustomerProperties(input: $input) {
+			_id
+		
+		}
+	}
+`);
+
 export const DELETE_CUSTOMER = gql(/* GraphQL */ `
 	mutation deleteCustomer($input: RemoveCustomerInput!) {
 		deleteCustomer(input: $input) {

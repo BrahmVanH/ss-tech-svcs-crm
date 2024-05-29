@@ -6,12 +6,10 @@ import { Link } from 'react-router-dom';
 
 // Styled component that accepts global theme object and isOpen boolean prop to conditionally transition/pin the sidebar
 const SidebarContainer = styled.div`
+	grid-column: 1 / 2;
+
 	display: flex;
 	flex-direction: column;
-	position: absolute;
-	bottom: 50%;
-	left: -6rem;
-	z-index: 15;
 	width: 7.5rem;
 	height: 30vh;
 	align-items: center;

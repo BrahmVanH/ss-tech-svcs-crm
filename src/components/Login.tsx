@@ -26,7 +26,7 @@ const LoginCard = styled.div`
 	border-radius: 6px;
 
 	@media (min-width: 1024px) {
-		width: 33.33%;
+		width: 50%;
 	}
 	@media (min-width: 768px) {
 		width: 30%;
@@ -44,12 +44,6 @@ const Form = styled.form`
 	margin: 0.5rem;
 	border-radius: 36px;
 	border: 1px solid white;
-
-	@media (min-width: 768px) {
-		width: 30%;
-		margin-top: 7.5%;
-		height: 60%;
-	}
 `;
 
 const AlertRect = styled.div`
@@ -69,7 +63,7 @@ const InputWrapper = styled.div`
 	padding: 4px;
 	border: 1px solid white;
 	border-radius: 6px;
-	`;
+`;
 
 const Input = styled.input<{ $width?: string }>`
 	background-color: transparent;
@@ -103,7 +97,6 @@ export const ButtonWrapper = styled.div`
 	padding: 4px;
 
 	/* add on hover attribute that highlights the button in a very transparent white */
-
 
 	&:active {
 		transform: scale(0.95);
@@ -210,7 +203,7 @@ export default function Login() {
 						<Input autoComplete='current-password' type='password' minLength={5} maxLength={25} placeholder='password' {...register('userPassword', { required: true })} />
 					</InputWrapper>
 
-					{(errors.username && errors.username.type === 'required') || (errors.password && errors.password.type === 'required') ? (
+					{(errors.username && errors.username.type === 'required') || (errors.userPassword && errors.userPassword.type === 'required') ? (
 						<AlertRect>
 							<AlertMessage style={{ fontSize: '10px' }} role='alert'>
 								You must fill all fields.

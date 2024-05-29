@@ -9,13 +9,13 @@ import { WorkOrder } from "./__generated__/graphql";
 // 	// is null or undefined, replace with a nullish but valid value
 // 	//  depending on the 
 // 	const 
-// const formatDate = (date: string) => {
-// 	const d = new Date(date);
-// 	const year = d.getFullYear();
-// 	const month = d.getMonth() + 1;
-// 	const day = d.getDate();
-// 	return `${month}/${day}/${year}`;
-// };
+export const formatDate = (date: string) => {
+	const d = new Date(date);
+	const year = d.getFullYear();
+	const month = d.getMonth() + 1;
+	const day = d.getDate();
+	return `${month}/${day}/${year}`;
+};
 
 // const getDayOfWeek = (day: number) => {
 // 	const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];

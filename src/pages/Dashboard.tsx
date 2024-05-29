@@ -10,19 +10,25 @@ import Invoices from '../components/Invoices';
 import Properties from '../components/Properties';
 
 const DashboardWrapper = styled.div`
-	display: flex;
+	display: grid;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	width: 100%;
+	height: 100%;
 	background-color: transparent;
+	grid-template-columns: [line1] 7rem [line2] 1fr [line3];
+	grid-template-rows: [row1] 100vh [row2];
 `;
 const DashboardContent = styled.div`
+	grid-column: line2 / line3;
+	margin: auto;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	width: 75%;
+	width: 90%;
+	height: 70%;
 	background-color: transparent;
 	border-radius: 6px;
 	border: 1px solid white;
@@ -77,26 +83,26 @@ export default function Dashboard() {
 		setRenderProperties(true);
 	};
 
-  useEffect(() => {
-    if (renderHome) {
-      setRenderedComponent(<Home />);
-    } else if (renderWorkOrders) {
-      setRenderedComponent(<WorkOrders />);
-    } else if (renderInvoices) {
-      setRenderedComponent(<Invoices />);
-    } else if (renderCustomers) {
-      setRenderedComponent(<Customers />);
-    } else if (renderProperties) {
-      setRenderedComponent(<Properties />);
-    }
-  }, [renderHome, renderWorkOrders, renderInvoices, renderCustomers, renderProperties]);
+	useEffect(() => {
+		if (renderHome) {
+			setRenderedComponent(<Home />);
+		} else if (renderWorkOrders) {
+			setRenderedComponent(<WorkOrders />);
+		} else if (renderInvoices) {
+			setRenderedComponent(<Invoices />);
+		} else if (renderCustomers) {
+			setRenderedComponent(<Customers />);
+		} else if (renderProperties) {
+			setRenderedComponent(<Properties />);
+		}
+	}, [renderHome, renderWorkOrders, renderInvoices, renderCustomers, renderProperties]);
 
 	return (
-		<DashboardWrapper>
+		<>
 			{!Auth.loggedIn() ? (
 				<Login />
 			) : (
-				<>
+				<DashboardWrapper>
 					<SideNav
 						handleRenderHome={handleRenderHome}
 						handleRenderWorkOrders={handleRenderWorkOrders}
@@ -105,8 +111,8 @@ export default function Dashboard() {
 						handleRenderProperties={handleRenderProperties}
 					/>
 					<DashboardContent>{renderedComponent}</DashboardContent>
-				</>
+				</DashboardWrapper>
 			)}
-		</DashboardWrapper>
+		</>
 	);
 }

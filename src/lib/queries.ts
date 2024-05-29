@@ -91,7 +91,6 @@ export const QUERY_PROPERTIES = gql(/* GraphQL */ `
 				phone
 			}
 			s3FolderKey
-			
 		}
 	}
 `);
@@ -123,16 +122,24 @@ export const QUERY_WORK_ORDERS = gql(/* GraphQL */ `
 	query QueryWorkOrders {
 		queryWorkOrders {
 			_id
-			date
-			lastUpdated
+			invoices {
+				_id
+			}
 			customerId {
 				_id
 				firstName
 				lastName
 				email
 				phone
-				businessName
 			}
+			charged
+			comments
+			completedBy
+			date
+			description
+			lastUpdated
+			paid
+			quote
 			propertyId {
 				_id
 				propertyName
@@ -142,22 +149,10 @@ export const QUERY_WORK_ORDERS = gql(/* GraphQL */ `
 					state
 					zip
 				}
-				propertyDescription
-				agent {
-					_id
-					firstName
-					lastName
-					phone
-				}
-				s3FolderKey
+
 			}
-			type
-			description
-			quote
 			total
-			charged
-			paid
-			comments
+			type
 		}
 	}
 `);
@@ -254,7 +249,7 @@ export const QUERY_WORK_ORDER_BY_PROPERTY_ID = gql(/* GraphQL */ `
 			_id
 			date
 			lastUpdated
-			customerId { 
+			customerId {
 				_id
 				firstName
 				lastName
@@ -299,16 +294,16 @@ export const QUERY_INVOICES = gql(/* GraphQL */ `
 			date
 			customerId {
 				_id
-				firstName
-				lastName
-				email
-				phone
-				businessName
+				# firstName
+				# lastName
+				# email
+				# phone
+				# businessName
 			}
 			workOrders {
 				_id
-				date
-				type
+				# date
+				# type
 			}
 			quote
 			total
@@ -398,8 +393,6 @@ export const QUERY_INVOICE_BY_WORK_ORDER_ID = gql(/* GraphQL */ `
 		}
 	}
 `);
-
-
 
 export const GET_PRESEIGNED_URL = gql(/* GraphQL */ `
 	query GetPresignedS3Url($imgKey: String!, $commandType: String!, $altTag: String!) {
