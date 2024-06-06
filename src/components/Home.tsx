@@ -18,7 +18,7 @@ const ContentWrapper = styled.div`
 
 const Content = styled.div`
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	align-items: center;
 	justify-content: space-evenly;
 	width: 100%;
@@ -68,6 +68,13 @@ const InvoiceList = styled.div`
 	background-color: transparent;
 	overflow-y: scroll;
 	scrollbar-width: none;
+
+	&:hover {
+		height: 100% !important;
+		z-index: 1000;
+		
+
+	}
 `;
 
 const InvoiceLI = styled.div`

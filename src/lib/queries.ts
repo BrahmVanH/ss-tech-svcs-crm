@@ -22,20 +22,17 @@ export const QUERY_CUSTOMERS = gql(/* GraphQL */ `
 			businessName
 			workOrders {
 				_id
-				date
-				propertyId {
-					_id
-					propertyName
-					propertyAddress {
-						street
-						city
-						state
-						zip
-					}
-				}
-				type
-				charged
-				paid
+				# date
+				# type
+				# charged
+				# paid
+			}
+			invoices {
+				_id
+			}
+			properties {
+				_id
+				propertyName
 			}
 		}
 	}
@@ -90,7 +87,7 @@ export const QUERY_PROPERTIES = gql(/* GraphQL */ `
 				lastName
 				phone
 			}
-			s3FolderKey
+			# s3FolderKey
 		}
 	}
 `);
