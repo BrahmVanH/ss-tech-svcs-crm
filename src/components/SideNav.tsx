@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Button, Icon, PinIcon, UnpinIcon, DeleteIcon, MultiSelectIcon, Tooltip, MenuIcon, AddIcon } from 'evergreen-ui';
 // import { SideBarSCProps, MenuItemsSCProps } from '../../types';
 import { Link } from 'react-router-dom';
+import * as Auth from '../lib/auth';
 
 // Styled component that accepts global theme object and isOpen boolean prop to conditionally transition/pin the sidebar
 const SidebarContainer = styled.div`
@@ -11,7 +12,7 @@ const SidebarContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	width: 7.5rem;
-	height: 30vh;
+	height: 100vh;
 	align-items: center;
 	justify-content: center;
 	background-color: transparent;
@@ -35,7 +36,7 @@ const MenuItems = styled.div`
 		display: flex;
 	}
 `;
-const NavButton = styled(Button)`
+const NavLink = styled(Link)`
 	width: 80%;
 	color: white;
 	border: 1px solid white;
@@ -53,39 +54,47 @@ const ToolTipTxt = styled.p`
 	line-height: 0;
 `;
 
-export default function SideNav({
-	handleRenderHome,
-	handleRenderWorkOrders,
-	handleRenderInvoices,
-	handleRenderCustomers,
-	handleRenderProperties,
-}: Readonly<{
-	handleRenderHome: () => void;
-	handleRenderWorkOrders: () => void;
-	handleRenderInvoices: () => void;
-	handleRenderCustomers: () => void;
-	handleRenderProperties: () => void;
-}>) {
+export default function SideNav() {
+	// Default state is not logged in, nav items default to disabled
+	const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 	const menuRef = useRef<HTMLDivElement>(null);
+	const menuItemsRef = useRef<HTMLDivElement>(null);
+
+	const handleDisableMenuItems = () => {
+		if (!menuItemsRef?.current) return;
+		if (isLoggedIn) {
+			menuItemsRef.current.removeAttribute('disabled');
+		} else {
+			menuItemsRef.current.setAttribute('disabled', 'true');
+		}
+	};
+
+	useEffect(() => {
+		setIsLoggedIn(Auth.loggedIn());
+	}, []);
+
+	useEffect(() => {
+		handleDisableMenuItems();
+	}, [isLoggedIn]);
 
 	return (
 		<SidebarContainer ref={menuRef}>
-			<MenuItems>
-				<NavButton onClick={handleRenderHome} appearance='minimal'>
+			<MenuItems ref={menuItemsRef}>
+				<NavLink to='/'>
 					Home
-				</NavButton>
-				<NavButton onClick={handleRenderWorkOrders} appearance='minimal'>
+				</NavLink>
+				<NavLink to='/workorders' >
 					Work Orders
-				</NavButton>
-				<NavButton onClick={handleRenderInvoices} appearance='minimal'>
+				</NavLink>
+				<NavLink to='/invoices'>
 					Invoices
-				</NavButton>
-				<NavButton onClick={handleRenderCustomers} appearance='minimal'>
+				</NavLink>
+				<NavLink to='/customers'>
 					Customers
-				</NavButton>
-				<NavButton onClick={handleRenderProperties} appearance='minimal'>
+				</NavLink>
+				<NavLink to='/properties'>
 					Properties
-				</NavButton>
+				</NavLink>
 			</MenuItems>
 		</SidebarContainer>
 	);
