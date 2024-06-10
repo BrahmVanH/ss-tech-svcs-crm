@@ -17,7 +17,7 @@ const DashboardWrapper = styled.div`
 	width: 100%;
 	height: 100%;
 	background-color: transparent;
-	grid-template-columns: [line1] 7rem [line2] 1fr [line3];
+	grid-template-columns: [line1] 5rem [line2] 1fr [line3];
 	grid-template-rows: [row1] 100vh [row2];
 `;
 const DashboardContent = styled.div`

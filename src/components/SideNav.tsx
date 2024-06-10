@@ -7,11 +7,8 @@ import * as Auth from '../lib/auth';
 
 // Styled component that accepts global theme object and isOpen boolean prop to conditionally transition/pin the sidebar
 const SidebarContainer = styled.div`
-	grid-column: 1 / 2;
-
 	display: flex;
 	flex-direction: column;
-	width: 7.5rem;
 	height: 100vh;
 	align-items: center;
 	justify-content: center;
@@ -30,7 +27,6 @@ const MenuItems = styled.div`
 	align-items: center;
 	justify-content: space-evenly;
 	height: 75%;
-	width: 100%;
 
 	${SidebarContainer}:hover & {
 		display: flex;
@@ -56,45 +52,16 @@ const ToolTipTxt = styled.p`
 
 export default function SideNav() {
 	// Default state is not logged in, nav items default to disabled
-	const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 	const menuRef = useRef<HTMLDivElement>(null);
-	const menuItemsRef = useRef<HTMLDivElement>(null);
-
-	const handleDisableMenuItems = () => {
-		if (!menuItemsRef?.current) return;
-		if (isLoggedIn) {
-			menuItemsRef.current.removeAttribute('disabled');
-		} else {
-			menuItemsRef.current.setAttribute('disabled', 'true');
-		}
-	};
-
-	useEffect(() => {
-		setIsLoggedIn(Auth.loggedIn());
-	}, []);
-
-	useEffect(() => {
-		handleDisableMenuItems();
-	}, [isLoggedIn]);
 
 	return (
 		<SidebarContainer ref={menuRef}>
-			<MenuItems ref={menuItemsRef}>
-				<NavLink to='/'>
-					Home
-				</NavLink>
-				<NavLink to='/workorders' >
-					Work Orders
-				</NavLink>
-				<NavLink to='/invoices'>
-					Invoices
-				</NavLink>
-				<NavLink to='/customers'>
-					Customers
-				</NavLink>
-				<NavLink to='/properties'>
-					Properties
-				</NavLink>
+			<MenuItems>
+				<NavLink to='/'>Home</NavLink>
+				<NavLink to='/workorders'>Work Orders</NavLink>
+				<NavLink to='/invoices'>Invoices</NavLink>
+				<NavLink to='/customers'>Customers</NavLink>
+				<NavLink to='/properties'>Properties</NavLink>
 			</MenuItems>
 		</SidebarContainer>
 	);

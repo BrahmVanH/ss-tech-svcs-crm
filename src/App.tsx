@@ -1,7 +1,7 @@
 import { ApolloClient, HttpLink, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import * as Auth from './lib/auth';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import Navbar from './components_old/Navbar';
 import Loading from './components_old/LoadingAnimation';
 import Login from './components/Login';
@@ -57,6 +57,14 @@ const client = new ApolloClient({
 	}),
 });
 
+const RouteWrapper = styled.div`
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;
+
 function App() {
 	const theme = {
 		primary: '#57779d',
@@ -68,15 +76,17 @@ function App() {
 		<Router>
 			<ApolloProvider client={client}>
 				<ThemeProvider theme={theme}>
-					<SideNav />
-					<Routes>
-						// To-Do: MAke all routes dynamic (is that good for perf in gatsby?)
-						<Route path='/' element={Auth.loggedIn() ? <Dashboard /> : <Login />} />
-						<Route path='/workorders' element={Auth.loggedIn() ? <WorkOrders /> : <Login />} />
-						<Route path='/invoices' element={Auth.loggedIn() ? <Invoices /> : <Login />} />
-						<Route path='/customers' element={Auth.loggedIn() ? <Customers /> : <Login />} />
-						<Route path='/properties' element={Auth.loggedIn() ? <Properties /> : <Login />} />
-					</Routes>
+					{Auth.loggedIn() ? <SideNav /> : <></>}
+					<RouteWrapper>
+						<Routes>
+							// To-Do: MAke all routes dynamic (is that good for perf in gatsby?)
+							<Route path='/' element={Auth.loggedIn() ? <Home /> : <Login />} />
+							<Route path='/workorders' element={Auth.loggedIn() ? <WorkOrders /> : <Login />} />
+							<Route path='/invoices' element={Auth.loggedIn() ? <Invoices /> : <Login />} />
+							<Route path='/customers' element={Auth.loggedIn() ? <Customers /> : <Login />} />
+							<Route path='/properties' element={Auth.loggedIn() ? <Properties /> : <Login />} />
+						</Routes>
+					</RouteWrapper>
 				</ThemeProvider>
 			</ApolloProvider>
 		</Router>
